@@ -35,7 +35,7 @@ send_command : exit-unlock (Name) *messenger.send
 physic_box : blue-key (Name)
 mass : 1 (int)
 size : m (l, m, s) * large, medium, small
-model : box (a custom model?)
+
 
 # Start #
 start : PlayerSpawnPoint (Name)

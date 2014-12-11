@@ -198,18 +198,11 @@ class LevelBuilder():
 
             self.level.game.physicsMgr.physicsWorld.attachRigidBody(node)
 
-            # get a custom box name otherwise apply default
-            if _object.getTag("model"):
-                _boxName = _object.getTag("model")
-            else:
-                _boxName = "box"
-            
-            # Set the visual for the box. Could make this more advance?
-            # Forsome reason using a custom box apart from the one in the egg file, works?
-            boxModel = loader.loadModel("assets/models/"+_boxName)
-            boxModel.setScale(.2, .2, .2)
-            #boxModel.setPos(_object.getPos(_levelRoot))
-            boxModel.reparentTo(np)#self.game.levelParentNode)
+            ## Set the visual
+            _object.reparentTo(np)
+            _object.setPos(0, 0, 0)
+            _object.setScale(.2)
+            _object.setHpr(0, 0, 0)
 
             ## Add the physic_box to the physicObjects list for gravity handling
             self.level.physicObjects[_object.getTag("physic_box")+str(self.level.physicObjCount)] = np
@@ -231,18 +224,11 @@ class LevelBuilder():
 
             self.level.game.physicsMgr.physicsWorld.attachRigidBody(node)
 
-            # get a custom box name otherwise apply default
-            if _object.getTag("model"):
-                _boxName = _object.getTag("model")
-            else:
-                _boxName = "box"
-            
-            # Set the visual for the box. Could make this more advance?
-            # Forsome reason using a custom box apart from the one in the egg file, works?
-            boxModel = loader.loadModel("assets/models/"+_boxName)
-            boxModel.setScale(1, 1, 1)
-            #boxModel.setPos(_object.getPos(_levelRoot))
-            boxModel.reparentTo(np)#self.game.levelParentNode)
+            ## Set the visual
+            _object.reparentTo(np)
+            _object.setPos(0, 0, 0)
+            _object.setScale(1)
+            _object.setHpr(0, 0, 0)
 
             ## Add the physic_box to the physicObjects list for gravity handling
             self.level.physicObjects[_object.getTag("physic_box")+str(self.level.physicObjCount)] = np
@@ -264,18 +250,11 @@ class LevelBuilder():
 
             self.level.game.physicsMgr.physicsWorld.attachRigidBody(node)
 
-            # get a custom box name otherwise apply default
-            if _object.getTag("model"):
-                _boxName = _object.getTag("model")
-            else:
-                _boxName = "box"
-            
-            # Set the visual for the box. Could make this more advance?
-            # Forsome reason using a custom box apart from the one in the egg file, works?
-            boxModel = loader.loadModel("assets/models/"+_boxName)
-            boxModel.setScale(2, 2, 2)
-            #boxModel.setPos(_object.getPos(_levelRoot))
-            boxModel.reparentTo(np)#self.game.levelParentNode)
+            ## Set the visual
+            _object.reparentTo(np)
+            _object.setPos(0, 0, 0)
+            _object.setScale(2)
+            _object.setHpr(0, 0, 0)
 
             ## Add the physic_box to the physicObjects list for gravity handling
             self.level.physicObjects[_object.getTag("physic_box")+str(self.level.physicObjCount)] = np
@@ -440,9 +419,9 @@ class LevelBuilder():
         ## Set the visual
         ## The visual of the lift should be parented to the physics part so that they move
         _object.reparentTo(np)#self.level.game.levelParentNode)
-        _object.setPos(np.getPos(_levelRoot))
-        _object.setScale(np.getScale(_levelRoot))
-        _object.setHpr(np.getHpr(_levelRoot))
+        _object.setPos(0, 0, 0)
+        _object.setScale(1)
+        _object.setHpr(0, 0, 0)
         
         self.level.game.physicsMgr.physicsWorld.attachRigidBody(body)
 

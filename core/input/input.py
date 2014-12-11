@@ -83,7 +83,7 @@ class Input(DirectObject):
             result = self.game.physicsMgr.physicsWorld.rayTestClosest(pFrom, pTo)
 
             # result.getNode().getName()
-            if result.getNode().getName() in self.avoidObjects:
+            if result.getNode() == None or result.getNode().getName() in self.avoidObjects:
                 pass
             else:            
                 messenger.send("check-mouse-lclick", [result])
@@ -137,7 +137,6 @@ class Input(DirectObject):
 
     def evtGetCameraPos(self):
         self.game.camera.getCameraPos()
-        messenger.send("exit-unlock")
 
     def evtSetDebug(self):
         print "Set Debug"

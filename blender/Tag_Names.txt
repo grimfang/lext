@@ -1,0 +1,51 @@
+# Logic Tag Names #
+-------------------
+?    Things in () are extra info: 
+?    builderKeyWord | Type | objectSetting
+?    ground type(string) GroundName
+
+# Level Info # 
+level_name : Name For level
+level_desc : Desc for level
+
+# Ground Plane #
+ground   : Ground (Name)
+type     : t-mesh (complexType)
+
+# Walls #
+wall : Name (Used for visuals)
+render : two-face (like for crawl space?)
+col_wall : Name (Used for collisions make them very basic)
+
+# Sun & Basic point lights #
+light    : direct (type) *direct, *point
+color    : 0.5, 0.5, 0.5 (stringFloats + ',')
+state    : on/off (bool)
+set_name : blue-light (Name)
+
+# Sensors #
+physic_sensor  : blue-lock (Name)
+type  : blue-lock (Type) *lock, *switch
+state : on/off (bool)
+needs : blue-key (Name) *contact before active
+set_light : blue-light
+send_command : exit-unlock (Name) *messenger.send
+
+# Physic_box # atm used for Keys. But usually its just moveable boxes.
+physic_box : blue-key (Name)
+mass : 1 (int)
+size : m (l, m, s) * large, medium, small
+model : box (a custom model?)
+
+# Start #
+start : PlayerSpawnPoint (Name)
+
+# Complex Object #
+complex_object  : Name
+
+# Doors #
+physic_door : exit-door 
+accept_command : exit-unlock
+state : open/closed
+rotate : axis, amount (y, 44)
+auto_close : yes/no

@@ -33,6 +33,8 @@ class GameCore:
         self.eventMgr = EventMgr(self)
 
     def startGame(self, _playerName="DefaultPlayer"):
+        self.eventMgr.start()
+        print "---> Started EventSystem"
         self.loadPhysicsSystem()
         print "---> Loaded Physics System"
 
@@ -65,5 +67,6 @@ class GameCore:
     def loadLevelSystem(self):
         self.level = Level(self)
         self.level.buildLevel("assets/level/intro")
+        self.level.start()
 
 

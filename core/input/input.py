@@ -44,6 +44,9 @@ class Input(DirectObject):
         self.physicObjects = None
         self.physicSensors = None
 
+        # should populate this automatically
+        self.avoidObjects = []
+
     def start(self):
         taskMgr.add(self.update, "input-update")
 
@@ -78,11 +81,12 @@ class Input(DirectObject):
 
             ## For the guns, maybe have it closest
             result = self.game.physicsMgr.physicsWorld.rayTestClosest(pFrom, pTo)
-            #print result.getNode()
 
-            avoid = ["ghost-gravity-gun", "physicsBody-UberNoob"]
-            
-            print result.getNode().getName()
+            # result.getNode().getName()
+            if result.getNode().getName() in self.avoidObjects:
+                pass
+            else:            
+                messenger.send("check-mouse-lclick", [result])
 
         else:
             return [False, Point3(0, 0, 0)]

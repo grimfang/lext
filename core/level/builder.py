@@ -119,9 +119,11 @@ class LevelBuilder():
             _object.setScale(_object.getScale(_levelRoot))
             _object.setHpr(_object.getHpr(_levelRoot))
 
+            self.level.avoidObjects.append(_object.getTag("ground"))
+
         else:
             shape = BulletPlaneShape(Vec3(0, 0, 0.1), 1)
-            node = BulletRigidBodyNode('ground')
+            node = BulletRigidBodyNode(_object.getTag("ground"))
             node.addShape(shape)
             np = self.level.game.physicsParentNode.attachNewNode(node)
             np.setPos(0, 0, -1)
@@ -130,6 +132,8 @@ class LevelBuilder():
             self.level.game.physicsMgr.physicsWorld.attachRigidBody(node)
             _object.reparentTo(self.level.game.levelParentNode)
             _object.setPos(0, 0, 0)
+
+            self.level.avoidObjects.append(_object.getTag("ground"))
 
     # These are static boxes.
     def buildBox(self, _object, _levelRoot):
@@ -427,6 +431,8 @@ class LevelBuilder():
 
         self.level.physicDoors[_object.getTag("physic_door")] = Door(self, _object.getTag("physic_door"), np, _object)
 
+        self.level.avoidObjects.append(_object.getTag("physic_door"))
+
     def buildComplexObject(self, _object, _levelRoot):
         tmpMesh = BulletTriangleMesh()
         node = _object.node()
@@ -453,6 +459,8 @@ class LevelBuilder():
         _object.setPos(_object.getPos(_levelRoot))
         _object.setScale(_object.getScale(_levelRoot))
         _object.setHpr(_object.getHpr(_levelRoot))
+
+        self.level.avoidObjects.append(_object.getTag("complex_object"))
 
 
 
@@ -495,14 +503,27 @@ class Door():
         self.builder.level.game.eventMgr.registerEvent(self.object.getTag("accept_command"), self.handleOpen)
 
     def handleOpen(self):
-        print "OPEN THE DOOR???"
-        door = self.np
-        duration = 2.0
-        pos = door.getHpr() + Vec3((0, 0, 44))
-        startPos = door.getHpr()        
-        doorHprInterval = LerpHprInterval(door, duration, pos, startPos)
-        doorHprInterval.start()
-        #self.liftState = _state
+        
+        # add something to avoid bugging it... spamclick('c')
+        if self.state != True:
+            # open
+            door = self.np
+            duration = 2.0
+            pos = door.getHpr() + Vec3((0, 0, 44))
+            startPos = door.getHpr()        
+            doorHprInterval = LerpHprInterval(door, duration, pos, startPos)
+            doorHprInterval.start()
+            self.state = True
+        else:
+            # close
+            door = self.np
+            duration = 2.0
+            pos = door.getHpr() + Vec3((0, 0, -44))
+            startPos = door.getHpr()        
+            doorHprInterval = LerpHprInterval(door, duration, pos, startPos)
+            doorHprInterval.start()
+            self.state = False
+
 
     def handleClose(self):
         pass

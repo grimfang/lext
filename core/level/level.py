@@ -35,9 +35,10 @@ class Level(DirectObject):
         self.physicSensors = {}
         self.physicLifts = {}
         self.physicDoors = {}
+        self.avoidObjects = []
 
     def start(self):
-    	pass
+    	self.updateAvoidObjects()
 
     def stop(self):
     	pass
@@ -64,6 +65,10 @@ class Level(DirectObject):
         xlist = []
         for obj in self.physicLifts:
             xlist.append(obj)
+
+    def updateAvoidObjects(self):
+        # update the list found in input.
+        self.game.input.avoidObjects = self.avoidObjects
 
     def liftHandler(self):
         pass

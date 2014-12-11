@@ -17,6 +17,11 @@ class EventMgr(DirectObject):
         self.game = _game
         self.events = []
 
+    def start(self):
+        self.accept("check-mouse-lclick", self.handleMouseLeft)
+
+    def stop(self):
+        self.ignore("check-mouse-lclick")
 
     # Don't know if this is the best way yet... The old way seemed stupid
     def registerEvent(self, _eventName=None, _eventMethod=None):
@@ -30,4 +35,11 @@ class EventMgr(DirectObject):
         # Build an event
         return self.accept(_eventName, _eventMethod)
 
+    def handleMouseLeft(self, _result):
+        
+        nodeName = _result.getNode().getName()
+
+        if "button" in nodeName:
+            cmd = self.game.level.physicSensors[nodeName].sendCommand
+            messenger.send(cmd)
 

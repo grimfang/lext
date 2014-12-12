@@ -465,7 +465,7 @@ class LevelBuilder():
 
 
 ### Physic objects ###
-
+# Move these to level...
 class Lift():
 
     def __init__(self, _name, _np, _object):
@@ -494,39 +494,45 @@ class Door():
         self.np = _np
         self.state = _object.getTag("state")
         self.rotateAxisString = _object.getTag("rotate") # Needs a split ','
+        print "ROTATE TAG:", self.rotateAxisString
+
+        self.startHpr = self.np.getHpr()
+        self.expectedHpr = self.startHpr + Vec3(0, 0, 44)
+        self.currentHpr = Vec3(0, 0, 0)
 
         if _object.hasTag("accept_command"):
             self.registerEvent()
 
 
     def registerEvent(self):
-        self.builder.level.game.eventMgr.registerEvent(self.object.getTag("accept_command"), self.handleOpen)
+        self.builder.level.game.eventMgr.registerEvent(self.object.getTag("accept_command"), self.handle)
 
-    def handleOpen(self):
+    def handle(self):
         
-        # add something to avoid bugging it... spamclick('c')
         if self.state != True:
             # open
-            door = self.np
-            duration = 2.0
-            pos = door.getHpr() + Vec3((0, 0, 44))
-            startPos = door.getHpr()        
-            doorHprInterval = LerpHprInterval(door, duration, pos, startPos)
+            self.currentHpr = self.np.getHpr()
+
+            if self.currentHpr <= self.expectedHpr:
+                pos = self.expectedHpr
+                startPos = self.np.getHpr()
+
+            duration = 2.0     
+            doorHprInterval = LerpHprInterval(self.np, duration, pos, startPos)
             doorHprInterval.start()
             self.state = True
         else:
             # close
-            door = self.np
-            duration = 2.0
-            pos = door.getHpr() + Vec3((0, 0, -44))
-            startPos = door.getHpr()        
-            doorHprInterval = LerpHprInterval(door, duration, pos, startPos)
+            self.currentHpr = self.np.getHpr()
+
+            if self.currentHpr >= self.startHpr:
+                pos = self.startHpr
+                startPos = self.np.getHpr()
+
+            duration = 2.0     
+            doorHprInterval = LerpHprInterval(self.np, duration, pos, startPos)
             doorHprInterval.start()
             self.state = False
-
-
-    def handleClose(self):
-        pass
 
 class Sensor():
 

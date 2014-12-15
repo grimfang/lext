@@ -3,6 +3,7 @@
 ?    Things in () are extra info: 
 ?    builderKeyWord | Type | objectSetting
 ?    ground type(string) GroundName
+?    Tag names should contain a keyword: yourobjname-button, lock, light... and so on
 
 # Level Info # 
 level_name : Name For level

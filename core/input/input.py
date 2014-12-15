@@ -93,7 +93,7 @@ class Input(DirectObject):
 
 
     def getMousePointAlways(self):
-
+        # This is used for the heading of the player. - omega
         if base.mouseWatcherNode.hasMouse():
             pMouse = base.mouseWatcherNode.getMouse()
             pFrom = Point3()
@@ -107,7 +107,7 @@ class Input(DirectObject):
             result = self.game.physicsMgr.physicsWorld.rayTestAll(pFrom, pTo)
             
             for hit in result.getHits():
-                if hit.getNode().getName() == "ground":
+                if hit.getNode().getName() == "Ground":
                     return hit.getHitPos()
 
 

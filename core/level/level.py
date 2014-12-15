@@ -79,4 +79,3 @@ class Level(DirectObject):
     	print "Should be off"
 
     	return task.cont
-

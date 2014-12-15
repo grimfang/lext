@@ -464,8 +464,10 @@ class LevelBuilder():
 
 
 
+
+
+
 ### Physic objects ###
-# Move these to level...
 class Lift():
 
     def __init__(self, _name, _np, _object):
@@ -494,15 +496,23 @@ class Door():
         self.np = _np
         self.state = _object.getTag("state")
         self.rotateAxisString = _object.getTag("rotate") # Needs a split ','
-        print "ROTATE TAG:", self.rotateAxisString
+        rot = self.rotateAxisString.split(',')
+        
 
         self.startHpr = self.np.getHpr()
-        self.expectedHpr = self.startHpr + Vec3(0, 0, 44)
+        self.expectedHpr = self.startHpr + self.getRotationAxis(rot)
         self.currentHpr = Vec3(0, 0, 0)
 
         if _object.hasTag("accept_command"):
             self.registerEvent()
 
+    def getRotationAxis(self, _rot):
+        if _rot[0] == "x":
+            print "x"
+        elif _rot[0] == "y":
+            return Vec3(0, 0, float(_rot[1]))
+        elif _rot[0] == "z":
+            print "z"
 
     def registerEvent(self):
         self.builder.level.game.eventMgr.registerEvent(self.object.getTag("accept_command"), self.handle)
@@ -541,6 +551,8 @@ class Sensor():
         self.name = _name
         self.object = _object
         self.type = _object.getTag("type")
+        self.state = _object.getTag("state")
+        print "THE STATE:", self.state, type(self.state)
         
 
         if self.type == "switch":

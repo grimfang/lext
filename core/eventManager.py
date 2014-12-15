@@ -40,6 +40,11 @@ class EventMgr(DirectObject):
         nodeName = _result.getNode().getName()
 
         if "button" in nodeName:
-            cmd = self.game.level.physicSensors[nodeName].sendCommand
-            messenger.send(cmd)
+            btn = self.game.level.physicSensors[nodeName]
+            if btn.state == True:
+                cmd = btn.sendCommand
+                messenger.send(cmd)
+            else:
+                print "The button is locked!"
+                # Show on screen msg!
 

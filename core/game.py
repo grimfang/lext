@@ -10,6 +10,7 @@ from physicsManager import PhysicsMgr
 from input.input import Input
 from camera.camera import Camera
 from level.level import Level
+from player.player import Player
 
 
 #----------------------------------------------------------------------#
@@ -47,6 +48,9 @@ class GameCore:
         self.loadLevelSystem()
         print "---> Loaded Level System"
 
+        self.loadPlayerSystem()
+        print "---> Loaded Player System"
+
     def stopGame(self):
     	pass
 
@@ -68,5 +72,9 @@ class GameCore:
         self.level = Level(self)
         self.level.buildLevel("assets/level/intro")
         self.level.start()
+
+    def loadPlayerSystem(self):
+        self.player = Player(self, "Main Man")
+        self.player.start()
 
 

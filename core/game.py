@@ -42,14 +42,14 @@ class GameCore:
         self.loadInputSystem()
         print "---> Loaded Input System"
 
-        self.loadCameraSystem()
-        print "---> Loaded Camera System"
-
         self.loadLevelSystem()
         print "---> Loaded Level System"
 
         self.loadPlayerSystem()
         print "---> Loaded Player System"
+
+        self.loadCameraSystem()
+        print "---> Loaded Camera System"
 
     def stopGame(self):
     	pass
@@ -64,10 +64,6 @@ class GameCore:
         self.input = Input(self)
         #self.input.start()
 
-    def loadCameraSystem(self):
-        self.camera = Camera(self)
-        self.camera.start()
-
     def loadLevelSystem(self):
         self.level = Level(self)
         self.level.buildLevel("assets/level/intro")
@@ -76,5 +72,9 @@ class GameCore:
     def loadPlayerSystem(self):
         self.player = Player(self, "Main Man")
         self.player.start()
+
+    def loadCameraSystem(self):
+        self.camera = Camera(self)
+        self.camera.start()
 
 

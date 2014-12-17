@@ -5,6 +5,8 @@
 # Panda Engine imports
 from direct.showbase.DirectObject import DirectObject
 from panda3d.core import *
+from direct.fsm.FSM import FSM
+from direct.actor.Actor import Actor
 
 # Game imports
 from physics import PlayerPhysics
@@ -21,6 +23,10 @@ class Player():
         # Player physics body
         self.pPhysicsBody = None
         self.pRayNode = None
+        self.playerModel = None
+
+        # Fsm State
+        self.playerActiveState = None
 
         ## Physics
         self.physics = PlayerPhysics(self)
@@ -28,6 +34,11 @@ class Player():
     def start(self):
     	self.buildPlayerPhysicsBody()
     	self.setPlayerModel("ralph")
+
+        # Player FSM
+        self.playerFSM = PlayerFSM(self, self.playerModel)
+
+        # Update
         taskMgr.add(self.update, "player-update")
 
     def stop(self):
@@ -39,7 +50,11 @@ class Player():
         
 
     def setPlayerModel(self, _modelName):
-        self.playerModel = loader.loadModel("assets/models/"+_modelName)
+        self.playerModel = Actor("assets/models/"+_modelName,
+            {
+            'walk':"assets/models/"+_modelName+"-walk"
+            })
+
         self.playerModel.setScale(.40)
         self.playerModel.setHpr(180, 0, 0)
         #self.playerModel.setPos(0, 0, 0)
@@ -57,11 +72,13 @@ class Player():
 
         ## Attach a dummy node for the camera
         self.camDummy = self.pPhysicsBody.attachNewNode("cam-dummy")
-        self.camDummy.setCompass()
+        #
+        #self.camDummy.setCompass()
 
         ## Telekinesis np to hack pivot
         self.centerRotNode = self.camDummy.attachNewNode("tele-dummy")
         self.centerRotNode.setCompass()
+        self.centerRotNode.setPos(-12, 10, 0)
 
     def update(self, task):
 
@@ -82,5 +99,34 @@ class Player():
     def evtPlaceDevice(self, _mouseFromTo):
     	pass
 
-    def playRunAnim(self):
-        pass
+    def requestState(self, _state):
+        if self.playerActiveState == _state:
+            return
+
+        else:
+            self.playerFSM.request(_state)
+
+        self.playerActiveState = _state
+
+
+
+### Player FSM
+
+class PlayerFSM(FSM):
+    def __init__(self, _player, _playerModel):
+        FSM.__init__(self, 'PlayerFSM')
+
+        self.player = _player
+        self.playerModel = _playerModel
+
+    def enterWalk(self):
+        self.playerModel.loop('walk')
+
+    def exitWalk(self):
+        self.playerModel.stop()
+
+    def enterIdle(self):
+        self.playerModel.stop()
+
+    def exitIdle(self):
+        self.playerModel.stop()

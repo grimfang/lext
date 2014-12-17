@@ -53,8 +53,9 @@ class PlayerPhysics():
         speed = Vec3(0, 0, 0)
         jump = Vec3(0, 0, 0)
         #direction = Vec3(_direction*4)
-        force = 4
+        force = 3
         jumpForce = 1.5
+        reqState = "Idle"
         
         if inputState.isSet('left'):
             speed.setX(-force)
@@ -64,10 +65,11 @@ class PlayerPhysics():
         
         if inputState.isSet('up'):
             speed.setY(force)
-            #playerBody.node().applyCentralForce(direction)
+            reqState = "Walk"
             
         if inputState.isSet('down'):
             speed.setY(-force)
+            reqState = "Walk"
     
         if inputState.isSet('space'):
         
@@ -83,6 +85,7 @@ class PlayerPhysics():
         #playerBody.node().applyCentralForce(speed)
         #playerBody.node().applyCentralImpulse(jump)
         playerBody.node().setLinearMovement(speed, True)
+        self.player.requestState(reqState)
 
 
     def checkFloorCollide(self):

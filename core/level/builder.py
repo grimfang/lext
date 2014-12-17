@@ -272,24 +272,25 @@ class LevelBuilder():
             tmpMesh.addGeom(node.getGeom(0))
         else:
             return
-            
-        body = BulletRigidBodyNode(_object.getTag("physic_sensor")+str(int(len(self.level.physicSensors))))
+        # Should be a ghost
+        body = BulletGhostNode(_object.getTag("physic_sensor")+str(int(len(self.level.physicSensors))))
         body.addShape(BulletTriangleMeshShape(tmpMesh, dynamic=False))
-        body.setMass(0)
+        #body.setMass(0)
         
         np = self.level.game.physicsParentNode.attachNewNode(body)
-        np.setCollideMask(BitMask32.allOn())
+        np.setCollideMask(BitMask32(0x0f))
         np.setScale(_object.getScale(_levelRoot))
         np.setPos(_object.getPos(_levelRoot))
         np.setHpr(_object.getHpr(_levelRoot))
         
-        self.level.game.physicsMgr.physicsWorld.attachRigidBody(body)
+        self.level.game.physicsMgr.physicsWorld.attachGhost(body)
 
-        ## Set the visual
-        _object.reparentTo(self.level.game.levelParentNode)
-        _object.setPos(_object.getPos(_levelRoot))
-        _object.setScale(_object.getScale(_levelRoot))
-        _object.setHpr(_object.getHpr(_levelRoot))
+        ## Set the visual depending on type
+        if _object.getTag("type") == "switch":
+            _object.reparentTo(self.level.game.levelParentNode)
+            _object.setPos(_object.getPos(_levelRoot))
+            _object.setScale(_object.getScale(_levelRoot))
+            _object.setHpr(_object.getHpr(_levelRoot))
 
         self.level.physicSensors[(_object.getTag("physic_sensor")+str(int(len(self.level.physicSensors))))] = Sensor(self, _object.getTag("physic_sensor"), _object)
 

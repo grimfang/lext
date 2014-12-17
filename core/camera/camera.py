@@ -14,10 +14,9 @@ class Camera(DirectObject):
 
 
     def start(self):
-        pass
-        #self.setCameraPos()
-        #self.setCameraHpr()
-        #self.attachCamOnPlayer()
+        self.setCameraPos()
+        self.setCameraHpr()
+        self.attachCamOnPlayer()
         #taskMgr.add(self.update, "update-cam")
 
 
@@ -32,8 +31,8 @@ class Camera(DirectObject):
         base.cam.setHpr(-50.81908, -60.4154, -2.94735)
 
     def attachCamOnPlayer(self):
-        base.cam.reparentTo(self.game.player.camDummy)
-        #base.cam.setCompass()
+        base.cam.reparentTo(self.game.player.centerRotNode)
+        base.cam.setCompass()
 
     ## EventMethod
     def getCameraPos(self):

@@ -38,7 +38,7 @@ class Main(ShowBase):
         self.game.startGame()
 
         print render.ls()
-        #self.game.physicsMgr.setPhysicsDebug(True)
+        self.game.physicsMgr.setPhysicsDebug(True)
 
 
     def exitApp(self):

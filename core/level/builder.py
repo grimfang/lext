@@ -273,7 +273,7 @@ class LevelBuilder():
         else:
             return
         # Should be a ghost
-        body = BulletGhostNode(_object.getTag("physic_sensor")+str(int(len(self.level.physicSensors))))
+        body = BulletGhostNode(_object.getTag("physic_sensor"))
         body.addShape(BulletTriangleMeshShape(tmpMesh, dynamic=False))
         #body.setMass(0)
 
@@ -292,7 +292,7 @@ class LevelBuilder():
             _object.setScale(_object.getScale(_levelRoot))
             _object.setHpr(_object.getHpr(_levelRoot))
 
-        self.level.physicSensors[(_object.getTag("physic_sensor")+str(int(len(self.level.physicSensors))))] = Sensor(self, _object.getTag("physic_sensor"), _object, np)
+        self.level.physicSensors[_object.getTag("physic_sensor")] = Sensor(self, _object.getTag("physic_sensor"), _object, np)
 
 
 
@@ -587,7 +587,7 @@ class Sensor():
 
         elif self.type == "lock":
             print "This is a lock"
-            self.sendUnlock = _object.getTag("send_command")
+            self.setUnlock = _object.getTag("set_unlock")
             print self.sendUnlock, "HERE"
             taskMgr.add(self.update, "sensor-update", priority=80)
 
@@ -604,5 +604,6 @@ class Sensor():
             
             if "key" in node.getName():
                 print node
+                self.builder.level.physicSensors[self.setUnlock].state = True
 
         return task.cont

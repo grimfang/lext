@@ -43,7 +43,7 @@ class Main(ShowBase):
 
     def exitApp(self):
         sys.exit()
-        
+
 
 
 main = Main()

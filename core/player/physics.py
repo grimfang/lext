@@ -54,14 +54,17 @@ class PlayerPhysics():
         jump = Vec3(0, 0, 0)
         #direction = Vec3(_direction*4)
         force = 3
+        strafe = 3
         jumpForce = 1.5
         reqState = "Idle"
         
         if inputState.isSet('left'):
-            speed.setX(-force)
+            speed.setX(-strafe)
+            #reqState = "LeftWalk"
         
         if inputState.isSet('right'):
-            speed.setX(force)
+            speed.setX(strafe)
+            #reqState = "RightWalk"
         
         if inputState.isSet('up'):
             speed.setY(force)
@@ -72,20 +75,26 @@ class PlayerPhysics():
             reqState = "Walk"
     
         if inputState.isSet('space'):
-        
-            self.checkFloorCollide()
-            if self.isFloating != True:
-                jump.setZ(jumpForce)
-                self.isFloating = True
-            elif self.isFloating == True:
-                jump.setZ(0.0)
-                #self.game.isFloating = False
+            
+            self.doJump()
+            #self.checkFloorCollide()
+            #if self.isFloating != True:
+            #    jump.setZ(jumpForce)
+            #    self.isFloating = True
+            #elif self.isFloating == True:
+            #    jump.setZ(0.0)
+            #    #self.game.isFloating = False
 
         #playerBody.node().setActive(True)
         #playerBody.node().applyCentralForce(speed)
         #playerBody.node().applyCentralImpulse(jump)
         playerBody.node().setLinearMovement(speed, True)
         self.player.requestState(reqState)
+
+    def doJump(self):
+        self.player.pPhysicsBody.node().setMaxJumpHeight(4.0)
+        self.player.pPhysicsBody.node().setJumpSpeed(6.0)
+        self.player.pPhysicsBody.node().doJump()
 
 
     def checkFloorCollide(self):

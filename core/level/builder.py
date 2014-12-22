@@ -19,15 +19,15 @@ from direct.interval.IntervalGlobal import *
 # ground = makes collision plane; Type = t-mesh
 # box = static cube/box
 # physic_box = dynamic cube
-# physic_sensor = switches, doors, traps/hidden paths should glow up your gun or aura 
+# physic_sensor = switches, doors, traps/hidden paths should glow up your gun or aura
 # light = create light (may need sub tag for light type, but for now its just pointlights)
-# coin = pickable object
+# pickup = pickable object
 # exit = exit point
 # start = spawn point
 # wall = basic wall visual
 # col_wall = collision shape
 # physic_lift = physics based object that moves up or down
-# physic_door 
+# physic_door
 # complex_object
 # size = Boxes have sizes s,m,l
 
@@ -43,33 +43,33 @@ class LevelBuilder():
 
     	# Object types in levels
     	self.objectTypes = {"ground": self.buildGround,
-                            "box": self.buildBox, 
-                            "light": self.buildLight, 
-    						"coin": self.buildCoin, 
-                            "exit": self.buildExitPoint, 
-                            "start": self.buildStartPoint, 
-    						"wall": self.buildWall, 
-                            "col_wall": self.buildColWall, 
-                            "physic_box": self.buildPhysicBox, 
-                            "physic_sensor": self.buildPhysicSensor, 
-                            "level_name": self.setLevelName, 
+                            "box": self.buildBox,
+                            "light": self.buildLight,
+    						"pickup": self.buildPickupObject,
+                            "exit": self.buildExitPoint,
+                            "start": self.buildStartPoint,
+    						"wall": self.buildWall,
+                            "col_wall": self.buildColWall,
+                            "physic_box": self.buildPhysicBox,
+                            "physic_sensor": self.buildPhysicSensor,
+                            "level_name": self.setLevelName,
                             "level_desc": self.setLevelDesc,
                             "physic_lift": self.buildLift,
                             "physic_door":self.buildPhysicDoor,
                             "complex_object": self.buildComplexObject
                             }
 
-    	
+
 
     ## Event Method
     def parseEggFile(self, _levelFileName):
     	 # parse the level for setup
-        
+
         self.levelModel = loader.loadModel(_levelFileName)
-        
+
         # Find all objects
         self.objects = self.levelModel.findAllMatches('**')
-        
+
         for object in self.objects:
             for type in self.objectTypes:
                 if object.hasTag(type):
@@ -95,22 +95,22 @@ class LevelBuilder():
 
             tmpMesh = BulletTriangleMesh()
             node = _object.node()
-            
+
             if node.isGeomNode():
                 tmpMesh.addGeom(node.getGeom(0))
             else:
                 return
-                
+
             body = BulletRigidBodyNode(_object.getTag("ground"))
             body.addShape(BulletTriangleMeshShape(tmpMesh, dynamic=False))
             body.setMass(0)
-            
+
             np = self.level.game.physicsParentNode.attachNewNode(body)
             np.setCollideMask(BitMask32.allOn())
             np.setScale(_object.getScale(_levelRoot))
             np.setPos(_object.getPos(_levelRoot))
             np.setHpr(_object.getHpr(_levelRoot))
-            
+
             self.level.game.physicsMgr.physicsWorld.attachRigidBody(body)
 
             ## Set the visual
@@ -128,7 +128,7 @@ class LevelBuilder():
             np = self.level.game.physicsParentNode.attachNewNode(node)
             np.setPos(0, 0, -1)
             np.setCollideMask(BitMask32.allOn())
-        
+
             self.level.game.physicsMgr.physicsWorld.attachRigidBody(node)
             _object.reparentTo(self.level.game.levelParentNode)
             _object.setPos(0, 0, 0)
@@ -143,7 +143,7 @@ class LevelBuilder():
             shape = BulletBoxShape(Vec3(.2, .2, .2))
             node = BulletRigidBodyNode('box')
             node.addShape(shape)
-            
+
             np = self.level.game.physicsParentNode.attachNewNode(node)
             np.setCollideMask(BitMask32.allOn())
             np.setPos(_object.getPos(_levelRoot))
@@ -156,7 +156,7 @@ class LevelBuilder():
             shape = BulletBoxShape(Vec3(.5, .5, .5))
             node = BulletRigidBodyNode('box')
             node.addShape(shape)
-            
+
             np = self.level.game.physicsParentNode.attachNewNode(node)
             np.setCollideMask(BitMask32.allOn())
             np.setPos(_object.getPos(_levelRoot))
@@ -169,7 +169,7 @@ class LevelBuilder():
             shape = BulletBoxShape(Vec3(1, 1, 1))
             node = BulletRigidBodyNode('box')
             node.addShape(shape)
-            
+
             np = self.level.game.physicsParentNode.attachNewNode(node)
             np.setCollideMask(BitMask32.allOn())
             np.setPos(_object.getPos(_levelRoot))
@@ -195,7 +195,7 @@ class LevelBuilder():
                 node.setMass(int(_object.getTag("mass")))
             else:
                 node.setMass(1)
-            
+
             np = self.level.game.physicsParentNode.attachNewNode(node)
             np.setCollideMask(BitMask32.allOn())
             np.setPos(_object.getPos())
@@ -221,7 +221,7 @@ class LevelBuilder():
                 node.setMass(int(_object.getTag("mass")))
             else:
                 node.setMass(1)
-            
+
             np = self.level.game.physicsParentNode.attachNewNode(node)
             np.setCollideMask(BitMask32.allOn())
             np.setPos(_object.getPos())
@@ -247,7 +247,7 @@ class LevelBuilder():
                 node.setMass(int(_object.getTag("mass")))
             else:
                 node.setMass(1)
-            
+
             np = self.level.game.physicsParentNode.attachNewNode(node)
             np.setCollideMask(BitMask32.allOn())
             np.setPos(_object.getPos())
@@ -267,7 +267,7 @@ class LevelBuilder():
     def buildPhysicSensor(self, _object, _levelRoot):
         tmpMesh = BulletTriangleMesh()
         node = _object.node()
-        
+
         if node.isGeomNode():
             tmpMesh.addGeom(node.getGeom(0))
         else:
@@ -276,13 +276,13 @@ class LevelBuilder():
         body = BulletGhostNode(_object.getTag("physic_sensor")+str(int(len(self.level.physicSensors))))
         body.addShape(BulletTriangleMeshShape(tmpMesh, dynamic=False))
         #body.setMass(0)
-        
+
         np = self.level.game.physicsParentNode.attachNewNode(body)
         np.setCollideMask(BitMask32(0x0f))
         np.setScale(_object.getScale(_levelRoot))
         np.setPos(_object.getPos(_levelRoot))
         np.setHpr(_object.getHpr(_levelRoot))
-        
+
         self.level.game.physicsMgr.physicsWorld.attachGhost(body)
 
         ## Set the visual depending on type
@@ -292,19 +292,17 @@ class LevelBuilder():
             _object.setScale(_object.getScale(_levelRoot))
             _object.setHpr(_object.getHpr(_levelRoot))
 
-        self.level.physicSensors[(_object.getTag("physic_sensor")+str(int(len(self.level.physicSensors))))] = Sensor(self, _object.getTag("physic_sensor"), _object)
+        self.level.physicSensors[(_object.getTag("physic_sensor")+str(int(len(self.level.physicSensors))))] = Sensor(self, _object.getTag("physic_sensor"), _object, np)
 
-        ## Setup the sensor events esp if its a switch
 
-        
 
     def buildLight(self, _object, _levelRoot):
-    	
+
         if _object.getTag("light") == "point":
             plight = PointLight('plights')
             colorString = _object.getTag('color').split(',')
             color = VBase4(float(colorString[0]), float(colorString[1]), float(colorString[2]), 1)
-            plight.setColor(color)            
+            plight.setColor(color)
             #plight.setShadowCaster(True, 512, 512)
             plight.setAttenuation(Point3(0, 0, 0.1))
             plnp = render.attachNewNode(plight)
@@ -320,8 +318,38 @@ class LevelBuilder():
             dlnp.setHpr(_object.getHpr(_levelRoot))
             render.setLight(dlnp)
 
-    def buildCoin(self, _object, _levelRoot):
-    	pass
+    # Something the player can put in his/her bag.
+    def buildPickupObject(self, _object, _levelRoot):
+    	tmpMesh = BulletTriangleMesh()
+        node = _object.node()
+
+        if node.isGeomNode():
+            tmpMesh.addGeom(node.getGeom(0))
+        else:
+            return
+        # Should be a ghost
+        body = BulletGhostNode(_object.getTag("physic_sensor")+str(int(len(self.level.physicSensors))))
+        body.addShape(BulletTriangleMeshShape(tmpMesh, dynamic=False))
+        #body.setMass(0)
+
+        np = self.level.game.physicsParentNode.attachNewNode(body)
+        np.setCollideMask(BitMask32(0x0f))
+        np.setScale(_object.getScale(_levelRoot))
+        np.setPos(_object.getPos(_levelRoot))
+        np.setHpr(_object.getHpr(_levelRoot))
+
+        self.level.game.physicsMgr.physicsWorld.attachGhost(body)
+
+        ## Set the visual depending on type
+        if _object.getTag("type") == "switch":
+            _object.reparentTo(self.level.game.levelParentNode)
+            _object.setPos(_object.getPos(_levelRoot))
+            _object.setScale(_object.getScale(_levelRoot))
+            _object.setHpr(_object.getHpr(_levelRoot))
+
+        #self.level.physicSensors[(_object.getTag("physic_sensor")+str(int(len(self.level.physicSensors))))] = Sensor(self, _object.getTag("physic_sensor"), _object)
+
+        #self.level.avoidObjects.append(_object.getTag("coin"))
 
     def buildExitPoint(self, _object, _levelRoot):
     	pass
@@ -339,50 +367,42 @@ class LevelBuilder():
             _object.setTwoSided(True)
 
     def buildColWall(self, _object, _levelRoot):
-    
+
         tmpMesh = BulletTriangleMesh()
         node = _object.node()
-        
+
         if node.isGeomNode():
             tmpMesh.addGeom(node.getGeom(0))
         else:
             return
-            
+
         body = BulletRigidBodyNode(_object.getTag("col_wall"))
         body.addShape(BulletTriangleMeshShape(tmpMesh, dynamic=False))
         body.setMass(0)
-        
+
         np = self.level.game.physicsParentNode.attachNewNode(body)
         np.setCollideMask(BitMask32.allOn())
         np.setScale(_object.getScale(_levelRoot))
         np.setPos(_object.getPos(_levelRoot))
         np.setHpr(_object.getHpr(_levelRoot))
-        
+
         self.level.game.physicsMgr.physicsWorld.attachRigidBody(body)
-
-        ## Set the visual
-        #_object.reparentTo(self.level.game.levelParentNode)
-        #_object.setPos(_object.getPos(_levelRoot))
-        #_object.setScale(_object.getScale(_levelRoot))
-        #_object.setHpr(_object.getHpr(_levelRoot))
-
-  
 
     def buildLift(self, _object, _levelRoot):
 
         tmpMesh = BulletTriangleMesh()
         node = _object.node()
-        
+
         if node.isGeomNode():
             tmpMesh.addGeom(node.getGeom(0))
         else:
             return
-        
+
         ## Would be cool to have it breakable... if you hit it from the side.. it could go out of its forced alignment field.. of epic ness  :P
         body = BulletRigidBodyNode(_object.getTag("physic_lift"))
         body.addShape(BulletTriangleMeshShape(tmpMesh, dynamic=False))
         body.setMass(0)
-        
+
         np = self.level.game.physicsParentNode.attachNewNode(body)
         np.setCollideMask(BitMask32.allOn())
         np.setScale(_object.getScale(_levelRoot))
@@ -395,26 +415,26 @@ class LevelBuilder():
         _object.setPos(0, 0, -0.2)
         #_object.setScale(_object.getScale(_levelRoot))
         #_object.setHpr(_object.getHpr(_levelRoot))
-        
+
         self.level.game.physicsMgr.physicsWorld.attachRigidBody(body)
 
         self.level.physicLifts[_object.getTag("physic_lift")] = Lift(_object.getTag("physic_lift"), np, _object)
 
 
     def buildPhysicDoor(self, _object, _levelRoot):
-        
+
         tmpMesh = BulletTriangleMesh()
         node = _object.node()
-        
+
         if node.isGeomNode():
             tmpMesh.addGeom(node.getGeom(0))
         else:
             return
-        
+
         body = BulletRigidBodyNode(_object.getTag("physic_door"))
         body.addShape(BulletTriangleMeshShape(tmpMesh, dynamic=False))
         body.setMass(0)
-        
+
         np = self.level.game.physicsParentNode.attachNewNode(body)
         np.setCollideMask(BitMask32.allOn())
         np.setScale(_object.getScale(_levelRoot))
@@ -427,7 +447,7 @@ class LevelBuilder():
         _object.setPos(0, 0, 0)
         _object.setScale(1)
         _object.setHpr(0, 0, 0)
-        
+
         self.level.game.physicsMgr.physicsWorld.attachRigidBody(body)
 
         self.level.physicDoors[_object.getTag("physic_door")] = Door(self, _object.getTag("physic_door"), np, _object)
@@ -437,22 +457,22 @@ class LevelBuilder():
     def buildComplexObject(self, _object, _levelRoot):
         tmpMesh = BulletTriangleMesh()
         node = _object.node()
-        
+
         if node.isGeomNode():
             tmpMesh.addGeom(node.getGeom(0))
         else:
             return
-            
+
         body = BulletRigidBodyNode(_object.getTag("complex_object"))
         body.addShape(BulletTriangleMeshShape(tmpMesh, dynamic=False))
         body.setMass(0)
-        
+
         np = self.level.game.physicsParentNode.attachNewNode(body)
         np.setCollideMask(BitMask32.allOn())
         np.setScale(_object.getScale(_levelRoot))
         np.setPos(_object.getPos(_levelRoot))
         np.setHpr(_object.getHpr(_levelRoot))
-        
+
         self.level.game.physicsMgr.physicsWorld.attachRigidBody(body)
 
         ## Set the visual
@@ -462,7 +482,6 @@ class LevelBuilder():
         _object.setHpr(_object.getHpr(_levelRoot))
 
         self.level.avoidObjects.append(_object.getTag("complex_object"))
-
 
 
 
@@ -483,7 +502,7 @@ class Lift():
         if self.liftState != True:
             duration = 2.0
             pos = lift.getPos() + (0, 0, 7)
-            startPos = lift.getPos()        
+            startPos = lift.getPos()
             liftPosInterval = LerpPosInterval(lift, duration, pos, startPos)
             liftPosInterval.start()
             self.liftState = _state
@@ -496,9 +515,9 @@ class Door():
         self.object = _object
         self.np = _np
         self.state = _object.getTag("state")
-        self.rotateAxisString = _object.getTag("rotate") # Needs a split ','
+        self.rotateAxisString = _object.getTag("rotate") # Needs a split ',' ('y', 44)
         rot = self.rotateAxisString.split(',')
-        
+
 
         self.startHpr = self.np.getHpr()
         self.expectedHpr = self.startHpr + self.getRotationAxis(rot)
@@ -519,7 +538,7 @@ class Door():
         self.builder.level.game.eventMgr.registerEvent(self.object.getTag("accept_command"), self.handle)
 
     def handle(self):
-        
+
         if self.state != True:
             # open
             self.currentHpr = self.np.getHpr()
@@ -528,7 +547,7 @@ class Door():
                 pos = self.expectedHpr
                 startPos = self.np.getHpr()
 
-            duration = 2.0     
+            duration = 2.0
             doorHprInterval = LerpHprInterval(self.np, duration, pos, startPos)
             doorHprInterval.start()
             self.state = True
@@ -540,21 +559,27 @@ class Door():
                 pos = self.startHpr
                 startPos = self.np.getHpr()
 
-            duration = 2.0     
+            duration = 2.0
             doorHprInterval = LerpHprInterval(self.np, duration, pos, startPos)
             doorHprInterval.start()
             self.state = False
 
 class Sensor():
 
-    def __init__(self, _builder, _name, _object):
+    def __init__(self, _builder, _name, _object, _np):
         self.builder = _builder
         self.name = _name
         self.object = _object
+        self.np = _np
         self.type = _object.getTag("type")
         self.state = _object.getTag("state")
-        print "THE STATE:", self.state, type(self.state)
-        
+
+        # Cmd if switch
+        self.sendCommand = None
+
+        # What to unlock
+        self.sendUnlock = None
+
 
         if self.type == "switch":
             print "This is a switch"
@@ -562,6 +587,22 @@ class Sensor():
 
         elif self.type == "lock":
             print "This is a lock"
+            self.sendUnlock = _object.getTag("send_command")
+            print self.sendUnlock, "HERE"
+            taskMgr.add(self.update, "sensor-update", priority=80)
 
     def setControl(self, _command):
         pass
+
+    def update(self, task):
+        # Only if lock type
+        # Check for overlapping nodes
+        # If correct node found update switch connected to this lock
+
+        sensor = self.np.node()
+        for node in sensor.getOverlappingNodes():
+            
+            if "key" in node.getName():
+                print node
+
+        return task.cont

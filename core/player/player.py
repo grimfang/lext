@@ -67,7 +67,7 @@ class Player():
 
         ## Attach a raynode used for jumping.
         playerRayNode = self.pPhysicsBody.attachNewNode("ray-dummy")
-        playerRayNode.setCompass()
+        #playerRayNode.setCompass()
         self.pRayNode = playerRayNode
 
         ## Attach a dummy node for the camera
@@ -120,6 +120,7 @@ class PlayerFSM(FSM):
         self.playerModel = _playerModel
 
     def enterWalk(self):
+        #self.playerModel.setH(180)
         self.playerModel.loop('walk')
 
     def exitWalk(self):
@@ -129,4 +130,18 @@ class PlayerFSM(FSM):
         self.playerModel.stop()
 
     def exitIdle(self):
+        self.playerModel.stop()
+
+    def enterLeftWalk(self):
+        self.playerModel.setH(-90)
+        self.playerModel.loop('walk')
+
+    def exitLeftWalk(self):
+        self.playerModel.stop()
+
+    def enterRightWalk(self):
+        self.playerModel.setH(90)
+        self.playerModel.loop('walk')
+
+    def exitRightWalk(self):
         self.playerModel.stop()

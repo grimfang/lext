@@ -1,0 +1,12 @@
+
+# Possible changes / ideas
+
+- Change the cubes to objects the player can create, to help with completing the level.  Limit the player on the amount of cubes he/she could create.
+- Cube colors mean different things, like blue is basic, green gives speed buff, yellow gives a low gravity buff. or something like that. Make them meaningful.
+
+- Devices are still the same: Player could place a device on the floor, of whice he/she could have a little hud that enables the adjustment of placed device's settings.
+- For instance: Everything in the device space could be affected by some force. or just plain antigravity.
+
+- The player needs to collect key cards, in order to unlock the locks that lock the level doors.
+- The player could carry these cards in some sort of bag.
+- Could also make use of Fuses to unlock circuit parts of the levels.  Some parts need big fuses that the player needs to push around, others are small enough to be carried like cards.

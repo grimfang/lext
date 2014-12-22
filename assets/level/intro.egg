@@ -1,7 +1,7 @@
 <CoordinateSystem> { Z-Up }
 
 <Comment> {
-  "egg-trans -tbnall -o /home/lext/development/Sources/GitProjects/grimfang_projects/lext/assets/level/intro.egg /home/lext/development/Sources/GitProjects/grimfang_projects/lext/assets/level/intro.egg"
+  "egg-trans -tbnall -o 'D:\Dev\Active\grimfang\lext\assets\level\intro.egg' 'D:\Dev\Active\grimfang\lext\assets\level\intro.egg'"
 }
 <Material> Material.010 {
   <Scalar> diffr { 0.05678 }
@@ -31,6 +31,18 @@
   <Scalar> diffr { 0.64 }
   <Scalar> diffg { 0.021311 }
   <Scalar> diffb { 0 }
+  <Scalar> emitr { 0 }
+  <Scalar> emitg { 0 }
+  <Scalar> emitb { 0 }
+  <Scalar> specr { 0.5 }
+  <Scalar> specg { 0.5 }
+  <Scalar> specb { 0.5 }
+  <Scalar> shininess { 12.5 }
+}
+<Material> Material.007 {
+  <Scalar> diffr { 0.033151 }
+  <Scalar> diffg { 0.023007 }
+  <Scalar> diffb { 0.280444 }
   <Scalar> emitr { 0 }
   <Scalar> emitg { 0 }
   <Scalar> emitb { 0 }
@@ -122,6 +134,400 @@
   <Scalar> specg { 0.5 }
   <Scalar> specb { 0.5 }
   <Scalar> shininess { 12.5 }
+}
+<Group> Plane {
+  <Transform> {
+    <Matrix4> {
+      0 0 7.5652 0
+      0 31.7499 0 0
+      -7.5652 0 0 0
+      21.4906 11.3642 7.26154 1
+    }
+  }
+  <Tag> col_wall {
+    wall
+  }
+  <VertexPool> Plane {
+    <Vertex> 0 {
+      21.4906 -20.3857 -0.303665
+    }
+    <Vertex> 1 {
+      21.4906 -20.3857 14.8267
+    }
+    <Vertex> 2 {
+      21.4906 43.1141 14.8267
+    }
+    <Vertex> 3 {
+      21.4906 43.1141 -0.303665
+    }
+  }
+  <Polygon> {
+    <Normal> { -1 0 0 }
+    <VertexRef> { 0 1 2 3 <Ref> { Plane } }
+  }
+}
+<Group> Cube.002 {
+  <Transform> {
+    <Matrix4> {
+      0.397454 0 0 0
+      0 31.7357 0 0
+      0 0 7.49776 0
+      21.9811 11.4172 7.18412 1
+    }
+  }
+  <Tag> wall {
+    wall
+  }
+  <VertexPool> Cube.002 {
+    <Vertex> 0 {
+      21.5836 -20.3185 14.6819
+    }
+    <Vertex> 1 {
+      21.5836 43.1528 14.6819
+    }
+    <Vertex> 2 {
+      21.5836 43.1528 -0.313637
+    }
+    <Vertex> 3 {
+      21.5836 -20.3185 -0.313637
+    }
+    <Vertex> 4 {
+      22.3785 43.1528 14.6819
+    }
+    <Vertex> 5 {
+      22.3785 43.1528 -0.313637
+    }
+    <Vertex> 6 {
+      22.3785 -20.3185 14.6819
+    }
+    <Vertex> 7 {
+      22.3785 -20.3185 -0.313637
+    }
+  }
+  <Polygon> {
+    <Normal> { -1 0 0 }
+    <VertexRef> { 0 1 2 3 <Ref> { Cube.002 } }
+  }
+  <Polygon> {
+    <Normal> { 0 1 0 }
+    <VertexRef> { 1 4 5 2 <Ref> { Cube.002 } }
+  }
+  <Polygon> {
+    <Normal> { 1 0 0 }
+    <VertexRef> { 4 6 7 5 <Ref> { Cube.002 } }
+  }
+  <Polygon> {
+    <Normal> { 0 -1 0 }
+    <VertexRef> { 6 0 3 7 <Ref> { Cube.002 } }
+  }
+  <Polygon> {
+    <Normal> { 0 0 -1 }
+    <VertexRef> { 3 2 5 7 <Ref> { Cube.002 } }
+  }
+  <Polygon> {
+    <Normal> { 0 0 1 }
+    <VertexRef> { 6 4 1 0 <Ref> { Cube.002 } }
+  }
+}
+<Group> Cube.001 {
+  <Transform> {
+    <Matrix4> {
+      1 0 0 0
+      0 1.29648 0 0
+      0 0 1.74732 0
+      9.57014 -2.00362 1.74373 1
+    }
+  }
+  <Tag> complex_object {
+    Blue-lock
+  }
+  <VertexPool> Cube.001 {
+    <Vertex> 0 {
+      8.57014 -0.6517 2.20844
+    }
+    <Vertex> 1 {
+      8.57014 -0.0693362 2.20844
+    }
+    <Vertex> 2 {
+      8.57014 -0.0693362 -0.00359452
+    }
+    <Vertex> 3 {
+      8.57014 -0.6517 -0.00359452
+    }
+    <Vertex> 4 {
+      10.1481 -0.0693362 2.20844
+    }
+    <Vertex> 5 {
+      10.5701 -0.0693362 2.20844
+    }
+    <Vertex> 6 {
+      10.5701 -0.0693362 -0.00359452
+    }
+    <Vertex> 7 {
+      10.1481 -0.0693362 -0.00359452
+    }
+    <Vertex> 8 {
+      10.5701 -3.3278 2.20844
+    }
+    <Vertex> 9 {
+      10.5701 -3.9379 2.20844
+    }
+    <Vertex> 10 {
+      10.5701 -3.9379 -0.00359452
+    }
+    <Vertex> 11 {
+      10.5701 -3.3278 -0.00359452
+    }
+    <Vertex> 12 {
+      8.99689 -3.9379 2.20844
+    }
+    <Vertex> 13 {
+      8.57014 -3.9379 2.20844
+    }
+    <Vertex> 14 {
+      8.57014 -3.9379 -0.00359452
+    }
+    <Vertex> 15 {
+      8.99689 -3.9379 -0.00359452
+    }
+    <Vertex> 16 {
+      8.99689 -0.6517 3.49105
+    }
+    <Vertex> 17 {
+      8.99689 -0.0693362 3.49105
+    }
+    <Vertex> 18 {
+      8.57014 -0.0693362 3.49105
+    }
+    <Vertex> 19 {
+      8.57014 -0.6517 3.49105
+    }
+    <Vertex> 20 {
+      8.99689 -0.0693362 2.20844
+    }
+    <Vertex> 21 {
+      8.99689 -0.0693362 -0.00359452
+    }
+    <Vertex> 22 {
+      10.1481 -0.6517 3.49105
+    }
+    <Vertex> 23 {
+      10.1481 -0.0693362 3.49105
+    }
+    <Vertex> 24 {
+      10.1481 -3.9379 2.20844
+    }
+    <Vertex> 25 {
+      10.1481 -3.9379 -0.00359452
+    }
+    <Vertex> 26 {
+      10.5701 -0.6517 3.49105
+    }
+    <Vertex> 27 {
+      10.5701 -0.0693362 3.49105
+    }
+    <Vertex> 28 {
+      10.5701 -3.3278 3.49105
+    }
+    <Vertex> 29 {
+      10.5701 -3.9379 3.49105
+    }
+    <Vertex> 30 {
+      8.99689 -3.9379 3.49105
+    }
+    <Vertex> 31 {
+      8.57014 -3.9379 3.49105
+    }
+    <Vertex> 32 {
+      10.1481 -3.9379 3.49105
+    }
+    <Vertex> 33 {
+      8.57014 -3.3278 2.20844
+    }
+    <Vertex> 34 {
+      8.57014 -3.3278 -0.00359452
+    }
+    <Vertex> 35 {
+      8.99689 -3.3278 3.49105
+    }
+    <Vertex> 36 {
+      8.57014 -3.3278 3.49105
+    }
+    <Vertex> 37 {
+      10.1481 -3.3278 3.49105
+    }
+    <Vertex> 38 {
+      10.5701 -0.6517 2.20844
+    }
+    <Vertex> 39 {
+      10.5701 -0.6517 -0.00359452
+    }
+  }
+  <Polygon> {
+    <Normal> { -1 0 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 0 1 2 3 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0 1 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 4 5 6 7 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 1 0 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 8 9 10 11 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0 -1 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 12 13 14 15 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0 0 1 }
+    <MRef> { Material.007 }
+    <VertexRef> { 16 17 18 19 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0 1 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 1 20 21 2 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0 0 1 }
+    <MRef> { Material.007 }
+    <VertexRef> { 22 23 17 16 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0 -1 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 9 24 25 10 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0 0 1 }
+    <MRef> { Material.007 }
+    <VertexRef> { 26 27 23 22 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { -1 0 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 19 18 1 0 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0 1 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 23 27 5 4 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 1 0 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 28 29 9 8 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0 -1 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 30 31 13 12 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0 1 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 18 17 20 1 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0 -1 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 32 30 12 24 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0 1 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 17 23 4 20 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0 -1 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 29 32 24 9 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { -1 0 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 13 33 34 14 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0 0 1 }
+    <MRef> { Material.007 }
+    <VertexRef> { 30 35 36 31 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0 0 1 }
+    <MRef> { Material.007 }
+    <VertexRef> { 32 37 35 30 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0 0 1 }
+    <MRef> { Material.007 }
+    <VertexRef> { 29 28 37 32 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { -1 0 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 31 36 33 13 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 1 0 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 26 28 8 38 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0 0 1 }
+    <MRef> { Material.007 }
+    <VertexRef> { 35 16 19 36 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0 0 1 }
+    <MRef> { Material.007 }
+    <VertexRef> { 37 22 16 35 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0 0 1 }
+    <MRef> { Material.007 }
+    <VertexRef> { 28 26 22 37 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { -1 0 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 36 19 0 33 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 1 0 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 5 38 39 6 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 1 0 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 27 26 38 5 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0.740761 0.671768 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 15 34 33 12 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { 0.724983 -0.688767 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 21 20 0 3 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { -0.728748 -0.684782 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 7 39 38 4 <Ref> { Cube.001 } }
+  }
+  <Polygon> {
+    <Normal> { -0.744419 0.667713 0 }
+    <MRef> { Material.007 }
+    <VertexRef> { 25 24 8 11 <Ref> { Cube.001 } }
+  }
 }
 <Group> blue_key.000 {
   <Transform> {
@@ -220,8 +626,8 @@
 <Group> switch-stand {
   <Transform> {
     <Matrix4> {
-      1 0 0 0
-      0 1 0 0
+      0.39855 0 0 0
+      0 0.502562 0 0
       0 0 1 0
       6.96117 11.0995 0.897399 1
     }
@@ -231,88 +637,88 @@
   }
   <VertexPool> switch-stand {
     <Vertex> 0 {
-      5.96117 10.0995 0.217146
+      6.56262 10.5969 0.217146
     }
     <Vertex> 1 {
-      5.96117 12.0995 0.217146
+      6.56262 11.602 0.217146
     }
     <Vertex> 2 {
-      5.96117 12.0995 -0.102601
+      6.56262 11.602 -0.102601
     }
     <Vertex> 3 {
-      5.96117 10.0995 -0.102601
+      6.56262 10.5969 -0.102601
     }
     <Vertex> 4 {
-      7.96117 12.0995 0.217146
+      7.35972 11.602 0.217146
     }
     <Vertex> 5 {
-      7.96117 12.0995 -0.102601
+      7.35972 11.602 -0.102601
     }
     <Vertex> 6 {
-      7.96117 10.0995 0.217146
+      7.35972 10.5969 0.217146
     }
     <Vertex> 7 {
-      7.96117 10.0995 -0.102601
+      7.35972 10.5969 -0.102601
     }
     <Vertex> 8 {
-      7.67313 10.3875 0.489032
+      7.24492 10.7416 0.489032
     }
     <Vertex> 9 {
-      6.2492 10.3875 0.489032
+      6.67741 10.7416 0.489032
     }
     <Vertex> 10 {
-      7.67313 10.4392 1.09276
+      7.24492 10.7676 1.09276
     }
     <Vertex> 11 {
-      6.2492 10.4392 1.09276
+      6.67741 10.7676 1.09276
     }
     <Vertex> 12 {
-      6.2492 11.8114 0.489032
+      6.67741 11.4573 0.489032
     }
     <Vertex> 13 {
-      7.67313 11.8114 0.489032
+      7.24492 11.4573 0.489032
     }
     <Vertex> 14 {
-      7.60514 10.4879 1.15367
+      7.21782 10.7921 1.15367
     }
     <Vertex> 15 {
-      6.31719 10.4879 1.15367
+      6.70451 10.7921 1.15367
     }
     <Vertex> 16 {
-      7.67313 11.7597 1.62537
+      7.24492 11.4313 1.62537
     }
     <Vertex> 17 {
-      6.2492 11.7597 1.62537
+      6.67741 11.4313 1.62537
     }
     <Vertex> 18 {
-      7.28432 10.7854 1.27367
+      7.08996 10.9416 1.27367
     }
     <Vertex> 19 {
-      6.63801 10.7854 1.27367
+      6.83237 10.9416 1.27367
     }
     <Vertex> 20 {
-      6.31719 11.6824 1.63542
+      6.70451 11.3924 1.63542
     }
     <Vertex> 21 {
-      7.60514 11.6824 1.63542
+      7.21782 11.3924 1.63542
     }
     <Vertex> 22 {
-      7.28432 10.7331 1.40356
+      7.08996 10.9153 1.40356
     }
     <Vertex> 23 {
-      6.63801 10.7331 1.40356
+      6.83237 10.9153 1.40356
     }
     <Vertex> 24 {
-      6.63801 11.3848 1.51542
+      6.83237 11.2429 1.51542
     }
     <Vertex> 25 {
-      7.28432 11.3848 1.51542
+      7.08996 11.2429 1.51542
     }
     <Vertex> 26 {
-      7.28432 11.3325 1.64531
+      7.08996 11.2165 1.64531
     }
     <Vertex> 27 {
-      6.63801 11.3325 1.64531
+      6.83237 11.2165 1.64531
     }
   }
   <Polygon> {
@@ -1398,12 +1804,12 @@
     <VertexRef> { 96 105 109 102 <Ref> { exit-lock } }
   }
   <Polygon> {
-    <Normal> { 0.999224 1e-06 -0.039393 }
+    <Normal> { 0.999224 1e-006 -0.039393 }
     <MRef> { Material.005 }
     <VertexRef> { 104 97 103 108 <Ref> { exit-lock } }
   }
   <Polygon> {
-    <Normal> { 0.999961 1e-06 0.008856 }
+    <Normal> { 0.999961 1e-006 0.008856 }
     <MRef> { Material.005 }
     <VertexRef> { 110 107 106 111 <Ref> { exit-lock } }
   }
@@ -1418,7 +1824,7 @@
     <VertexRef> { 102 109 111 106 <Ref> { exit-lock } }
   }
   <Polygon> {
-    <Normal> { 0.996135 1e-06 -0.087831 }
+    <Normal> { 0.996135 1e-006 -0.087831 }
     <MRef> { Material.005 }
     <VertexRef> { 108 103 107 110 <Ref> { exit-lock } }
   }
@@ -1503,7 +1909,7 @@
     <VertexRef> { 92 117 121 125 <Ref> { exit-lock } }
   }
   <Polygon> {
-    <Normal> { -1e-06 1 0 }
+    <Normal> { -1e-006 1 0 }
     <MRef> { Material.005 }
     <VertexRef> { 128 124 129 130 <Ref> { exit-lock } }
   }
@@ -1553,7 +1959,7 @@
     <VertexRef> { 138 139 130 129 <Ref> { exit-lock } }
   }
   <Polygon> {
-    <Normal> { -1e-06 1 0 }
+    <Normal> { -1e-006 1 0 }
     <MRef> { Material.005 }
     <VertexRef> { 134 131 133 136 <Ref> { exit-lock } }
   }
@@ -1563,7 +1969,7 @@
     <VertexRef> { 124 123 138 129 <Ref> { exit-lock } }
   }
   <Polygon> {
-    <Normal> { 1e-06 -1 0 }
+    <Normal> { 1e-006 -1 0 }
     <MRef> { Material.005 }
     <VertexRef> { 120 119 137 132 <Ref> { exit-lock } }
   }
@@ -1578,7 +1984,7 @@
     <VertexRef> { 135 128 130 139 <Ref> { exit-lock } }
   }
   <Polygon> {
-    <Normal> { 1e-06 -1 0 }
+    <Normal> { 1e-006 -1 0 }
     <MRef> { Material.005 }
     <VertexRef> { 123 135 139 138 <Ref> { exit-lock } }
   }
@@ -1947,6 +2353,9 @@
   <Tag> physic_box {
     green-key
   }
+  <Tag> size {
+    m
+  }
   <VertexPool> blue_key.001 {
     <Vertex> 0 {
       -3.99996 -5.92513 0.267083
@@ -2007,10 +2416,10 @@
 <Group> physics-switch-red {
   <Transform> {
     <Matrix4> {
-      0.378471 -0.000791 0.000995 0
-      8.4e-05 0.009718 -0.024422 0
-      0.000378 0.362048 0.144068 0
-      6.95651 11.0232 1.5571 1
+      0.208007 -0.000567 0.000408 0
+      4.6e-005 0.008786 -0.011466 0
+      0.000208 0.169987 0.130258 0
+      6.96021 11.0454 1.57192 1
     }
   }
   <Tag> needs {
@@ -2033,57 +2442,57 @@
   }
   <VertexPool> physics-switch-red {
     <Vertex> 0 {
-      6.57833 11.3763 1.7246
+      6.75237 11.2072 1.71323
     }
     <Vertex> 1 {
-      6.5785 11.3957 1.67575
+      6.75246 11.2247 1.6903
     }
     <Vertex> 2 {
-      6.57774 10.6716 1.38762
+      6.75204 10.8848 1.42978
     }
     <Vertex> 3 {
-      6.57757 10.6522 1.43646
+      6.75195 10.8672 1.45272
     }
     <Vertex> 4 {
-      7.33544 11.3941 1.67774
+      7.16847 11.2236 1.69112
     }
     <Vertex> 5 {
-      7.33469 10.67 1.38961
+      7.16806 10.8836 1.4306
     }
     <Vertex> 6 {
-      7.33527 11.3747 1.72659
+      7.16838 11.206 1.71405
     }
     <Vertex> 7 {
-      7.33452 10.6506 1.43845
+      7.16796 10.866 1.45353
     }
   }
   <Polygon> {
-    <Normal> { -0.999994 0.00209 -0.002628 }
+    <Normal> { -0.999994 0.002725 -0.001962 }
     <MRef> { Material.008 }
     <VertexRef> { 0 1 2 3 <Ref> { physics-switch-red } }
   }
   <Polygon> {
-    <Normal> { 0.003215 0.369724 -0.929136 }
+    <Normal> { 0.003215 0.608234 -0.793751 }
     <MRef> { Material.008 }
     <VertexRef> { 1 4 5 2 <Ref> { physics-switch-red } }
   }
   <Polygon> {
-    <Normal> { 0.999994 -0.00209 0.002628 }
+    <Normal> { 0.999994 -0.002725 0.001962 }
     <MRef> { Material.008 }
     <VertexRef> { 4 6 7 5 <Ref> { physics-switch-red } }
   }
   <Polygon> {
-    <Normal> { -0.003215 -0.369724 0.929136 }
+    <Normal> { -0.003215 -0.608234 0.793751 }
     <MRef> { Material.008 }
     <VertexRef> { 6 0 3 7 <Ref> { physics-switch-red } }
   }
   <Polygon> {
-    <Normal> { -0.00097 -0.929139 -0.369729 }
+    <Normal> { -0.00097 -0.793753 -0.608239 }
     <MRef> { Material.008 }
     <VertexRef> { 3 2 5 7 <Ref> { physics-switch-red } }
   }
   <Polygon> {
-    <Normal> { 0.00097 0.929139 0.369729 }
+    <Normal> { 0.00097 0.793753 0.608239 }
     <MRef> { Material.008 }
     <VertexRef> { 6 4 1 0 <Ref> { physics-switch-red } }
   }
@@ -2091,10 +2500,10 @@
 <Group> blue_lock {
   <Transform> {
     <Matrix4> {
-      4 0 0 0
-      0 4 0 0
-      0 0 1.5 0
-      -4.84994 17.4742 1.65635 1
+      0.208846 0 0 0
+      0 0.556609 0 0
+      0 0 0.465088 0
+      9.57586 -1.98545 0.993279 1
     }
   }
   <Tag> needs {
@@ -2114,28 +2523,28 @@
   }
   <VertexPool> blue_lock {
     <Vertex> 0 {
-      -0.849945 21.4742 0.156348
+      9.78471 -1.42884 0.528192
     }
     <Vertex> 1 {
-      -0.849945 13.4742 0.156348
+      9.78471 -2.54206 0.528192
     }
     <Vertex> 2 {
-      -8.84995 13.4742 0.156348
+      9.36702 -2.54206 0.528192
     }
     <Vertex> 3 {
-      -8.84994 21.4742 0.156348
+      9.36702 -1.42884 0.528192
     }
     <Vertex> 4 {
-      -0.849943 21.4742 3.15635
+      9.78471 -1.42884 1.45837
     }
     <Vertex> 5 {
-      -8.84995 21.4742 3.15635
+      9.36702 -1.42884 1.45837
     }
     <Vertex> 6 {
-      -8.84995 13.4742 3.15635
+      9.36702 -2.54206 1.45837
     }
     <Vertex> 7 {
-      -0.849947 13.4742 3.15635
+      9.78471 -2.54206 1.45837
     }
   }
   <Polygon> {
@@ -2250,6 +2659,9 @@
   <Tag> physic_box {
     red-key
   }
+  <Tag> size {
+    m
+  }
   <VertexPool> blue_key.002 {
     <Vertex> 0 {
       -1.41379 -5.92513 0.267083
@@ -2336,7 +2748,7 @@
       12.0959 -31.9359 0
     }
     <Vertex> 5 {
-      16.6307 4.06052 7.80254e-09
+      16.6307 4.06052 7.80254e-009
     }
     <Vertex> 6 {
       12.0959 4.06052 0
@@ -2345,16 +2757,16 @@
       12.0959 -31.9248 0
     }
     <Vertex> 8 {
-      74.2893 -31.9247 7.80254e-09
+      74.2893 -31.9247 7.80254e-009
     }
     <Vertex> 9 {
-      74.2962 31.9359 3.09457e-08
+      74.2962 31.9359 3.09457e-008
     }
     <Vertex> 10 {
-      16.6307 9.12456 7.80254e-09
+      16.6307 9.12456 7.80254e-009
     }
     <Vertex> 11 {
-      74.2962 48.4965 3.09457e-08
+      74.2962 48.4965 3.09457e-008
     }
     <Vertex> 12 {
       12.0959 48.4965 0

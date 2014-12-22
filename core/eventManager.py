@@ -19,9 +19,11 @@ class EventMgr(DirectObject):
 
     def start(self):
         self.accept("check-mouse-lclick", self.handleMouseLeft)
+        self.accept("handle-lock", self.handleButtonLock)
 
     def stop(self):
         self.ignore("check-mouse-lclick")
+        self.ignore("handle-lock")
 
     # Don't know if this is the best way yet... The old way seemed stupid
     def registerEvent(self, _eventName=None, _eventMethod=None):
@@ -40,11 +42,36 @@ class EventMgr(DirectObject):
         nodeName = _result.getNode().getName()
 
         if "button" in nodeName:
-            btn = self.game.level.physicSensors[nodeName]
-            if btn.state == True:
-                cmd = btn.sendCommand
-                messenger.send(cmd)
+            if self.game.level.physicSensors[nodeName]:
+                btn = self.game.level.physicSensors[nodeName]
+                if btn.state == True:
+                    cmd = btn.sendCommand
+                    messenger.send(cmd)
+                else:
+                    print "The button is locked!"
+                    # Show on screen msg!
+
+    def handleButtonLock(self, _lock, _setUnlock):
+        # _lock is the fuse
+        # _setUnlock is the button to unlock, or to set needs for type fuse
+        if _lock in self.game.level.physicSensors[_setUnlock].needs:
+            self.game.level.physicSensors[_setUnlock].needs[_lock] = True
+            self.checkButtonNeeds(_lock, _setUnlock)
+
+    def checkButtonNeeds(self, _lock, _setUnlock):
+        # Chec the button needs, if all true set the button to active, else leave dead
+        tmp = []
+        for lock in self.game.level.physicSensors[_setUnlock].needs:
+
+            if self.game.level.physicSensors[_setUnlock].needs[lock] == True:
+                tmp.append(True)
             else:
-                print "The button is locked!"
-                # Show on screen msg!
+                tmp.append(False)
+
+        if False in tmp:
+            self.game.level.physicSensors[_setUnlock].state = False
+        else:
+            self.game.level.physicSensors[_setUnlock].state = True
+
+
 

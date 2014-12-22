@@ -51,6 +51,7 @@ class LevelBuilder():
     						"wall": self.buildWall,
                             "col_wall": self.buildColWall,
                             "physic_box": self.buildPhysicBox,
+                            "physic_fuse": self.buildPhysicFuse,
                             "physic_sensor": self.buildPhysicSensor,
                             "level_name": self.setLevelName,
                             "level_desc": self.setLevelDesc,
@@ -262,6 +263,93 @@ class LevelBuilder():
 
             ## Add the physic_box to the physicObjects list for gravity handling
             self.level.physicObjects[_object.getTag("physic_box")+str(self.level.physicObjCount)] = np
+            self.level.physicObjCount += 1
+
+    def buildPhysicFuse(self, _object, _levelRoot):
+        # This is game related object needed to complete a level.
+        # Fuses are like keys that the player can only push or move via a device.
+        # Make this more custom. for custom sizes.. or make a new method for handling those types
+        # Large 1,1,1  Medium .5,.5,.5  Small .1,.1,.1
+
+        # Get object size
+        size = _object.getTag("size")
+
+        if size == "s":
+            shape = BulletBoxShape(Vec3(.2, .2, .2))
+            node = BulletRigidBodyNode(_object.getTag("physic_fuse"))
+            node.addShape(shape)
+
+            if _object.getTag("mass"):
+                node.setMass(int(_object.getTag("mass")))
+            else:
+                node.setMass(1)
+
+            np = self.level.game.physicsParentNode.attachNewNode(node)
+            np.setCollideMask(BitMask32.allOn())
+            np.setPos(_object.getPos())
+
+            self.level.game.physicsMgr.physicsWorld.attachRigidBody(node)
+
+            ## Set the visual
+            _object.reparentTo(np)
+            _object.setPos(0, 0, 0)
+            _object.setScale(.2)
+            _object.setHpr(0, 0, 0)
+
+            ## Add the physic_box to the physicObjects list for gravity handling
+            self.level.physicObjects[_object.getTag("physic_fuse")] = np
+            self.level.physicObjCount += 1
+
+        if size == "m":
+            shape = BulletBoxShape(Vec3(1, 1, 1))
+            node = BulletRigidBodyNode(_object.getTag("physic_fuse"))
+            node.addShape(shape)
+
+            if _object.getTag("mass"):
+                node.setMass(int(_object.getTag("mass")))
+            else:
+                node.setMass(1)
+
+            np = self.level.game.physicsParentNode.attachNewNode(node)
+            np.setCollideMask(BitMask32.allOn())
+            np.setPos(_object.getPos())
+
+            self.level.game.physicsMgr.physicsWorld.attachRigidBody(node)
+
+            ## Set the visual
+            _object.reparentTo(np)
+            _object.setPos(0, 0, 0)
+            _object.setScale(1)
+            _object.setHpr(0, 0, 0)
+
+            ## Add the physic_box to the physicObjects list for gravity handling
+            self.level.physicObjects[_object.getTag("physic_fuse")] = np
+            self.level.physicObjCount += 1
+
+        if size == "l":
+            shape = BulletBoxShape(Vec3(2, 2, 2))
+            node = BulletRigidBodyNode(_object.getTag("physic_fuse"))
+            node.addShape(shape)
+
+            if _object.getTag("mass"):
+                node.setMass(int(_object.getTag("mass")))
+            else:
+                node.setMass(1)
+
+            np = self.level.game.physicsParentNode.attachNewNode(node)
+            np.setCollideMask(BitMask32.allOn())
+            np.setPos(_object.getPos())
+
+            self.level.game.physicsMgr.physicsWorld.attachRigidBody(node)
+
+            ## Set the visual
+            _object.reparentTo(np)
+            _object.setPos(0, 0, 0)
+            _object.setScale(2)
+            _object.setHpr(0, 0, 0)
+
+            ## Add the physic_box to the physicObjects list for gravity handling
+            self.level.physicObjects[_object.getTag("physic_fuse")] = np
             self.level.physicObjCount += 1
 
     def buildPhysicSensor(self, _object, _levelRoot):
@@ -564,7 +652,7 @@ class Door():
             doorHprInterval.start()
             self.state = False
 
-class Sensor():
+class Sensor(DirectObject):
 
     def __init__(self, _builder, _name, _object, _np):
         self.builder = _builder
@@ -573,6 +661,7 @@ class Sensor():
         self.np = _np
         self.type = _object.getTag("type")
         self.state = _object.getTag("state")
+        self.needs = None
 
         # Cmd if switch
         self.sendCommand = None
@@ -584,10 +673,16 @@ class Sensor():
         if self.type == "switch":
             print "This is a switch"
             self.sendCommand = _object.getTag("send_command")
+            self.needs = {}
+            needs = _object.getTag("needs").split(',')
+            # Set a state for each need
+            for need in needs:
+                self.needs[need] = False
 
         elif self.type == "lock":
             print "This is a lock"
             self.setUnlock = _object.getTag("set_unlock")
+            self.needs = _object.getTag("needs")
             print self.sendUnlock, "HERE"
             taskMgr.add(self.update, "sensor-update", priority=80)
 
@@ -603,7 +698,8 @@ class Sensor():
         for node in sensor.getOverlappingNodes():
             
             if "key" in node.getName():
-                print node
-                self.builder.level.physicSensors[self.setUnlock].state = True
+                if node.getName() == self.needs:
+                    messenger.send("handle-lock", [self.name, self.setUnlock])
+                    #self.builder.level.physicSensors[self.setUnlock].state = True
 
         return task.cont

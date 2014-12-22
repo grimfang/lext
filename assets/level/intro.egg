@@ -538,7 +538,7 @@
       0.166285 -6.92513 1.26708 1
     }
   }
-  <Tag> physic_box {
+  <Tag> physic_fuse {
     blue-key
   }
   <Tag> size {
@@ -2350,7 +2350,7 @@
       -4.99996 -6.92513 1.26708 1
     }
   }
-  <Tag> physic_box {
+  <Tag> physic_fuse {
     green-key
   }
   <Tag> size {
@@ -2423,7 +2423,7 @@
     }
   }
   <Tag> needs {
-    blue-lock
+    "blue-lock, red-lock"
   }
   <Tag> physic_sensor {
     exit-button
@@ -2659,7 +2659,7 @@
       -2.41378 -6.92513 1.26708 1
     }
   }
-  <Tag> physic_box {
+  <Tag> physic_fuse {
     red-key
   }
   <Tag> size {

@@ -663,28 +663,31 @@ class Sensor(DirectObject):
         self.state = _object.getTag("state")
         self.needs = None
 
+        # Tasks 
+        self.priority = 70
+
         # Cmd if switch
         self.sendCommand = None
-
-        # What to unlock
-        self.sendUnlock = None
-
 
         if self.type == "switch":
             print "This is a switch"
             self.sendCommand = _object.getTag("send_command")
             self.needs = {}
-            needs = _object.getTag("needs").split(',')
+            needs = _object.getTag("needs")
+            needs = [x.strip() for x in needs.split(',')]
+
             # Set a state for each need
             for need in needs:
                 self.needs[need] = False
+            
 
         elif self.type == "lock":
             print "This is a lock"
+            pr = self.priority ++ 1
             self.setUnlock = _object.getTag("set_unlock")
             self.needs = _object.getTag("needs")
-            print self.sendUnlock, "HERE"
-            taskMgr.add(self.update, "sensor-update", priority=80)
+            taskMgr.add(self.update, "sensor-update-"+str(self.name), priority=pr)
+            print "sensor-update-"+str(self.name)
 
     def setControl(self, _command):
         pass
@@ -696,10 +699,9 @@ class Sensor(DirectObject):
 
         sensor = self.np.node()
         for node in sensor.getOverlappingNodes():
-            
             if "key" in node.getName():
                 if node.getName() == self.needs:
+                    #print node.getName(), self.needs
                     messenger.send("handle-lock", [self.name, self.setUnlock])
-                    #self.builder.level.physicSensors[self.setUnlock].state = True
 
         return task.cont

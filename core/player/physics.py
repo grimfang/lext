@@ -57,6 +57,9 @@ class PlayerPhysics():
         strafe = 3
         jumpForce = 1.5
         reqState = "Idle"
+
+        if inputState.isSet('boost'):
+            force = force + 2
         
         if inputState.isSet('left'):
             speed.setX(-strafe)

@@ -26,6 +26,7 @@ class Input(DirectObject):
         inputState.watchWithModifiers('right', 'd')
         inputState.watchWithModifiers('space', 'space')
         inputState.watchWithModifiers('control', 'control')
+        inputState.watchWithModifiers('boost', 'lshift')
 
         # Camera
         self.accept('c', self.evtGetCameraPos)

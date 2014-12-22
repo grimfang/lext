@@ -70,8 +70,10 @@ class EventMgr(DirectObject):
 
         if False in tmp:
             self.game.level.physicSensors[_setUnlock].state = False
+            #print tmp
         else:
             self.game.level.physicSensors[_setUnlock].state = True
+            #print tmp
 
 
 

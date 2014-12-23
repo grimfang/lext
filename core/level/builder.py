@@ -130,9 +130,11 @@ class LevelBuilder():
             np.setPos(0, 0, -1)
             np.setCollideMask(BitMask32.allOn())
 
+
             self.level.game.physicsMgr.physicsWorld.attachRigidBody(node)
             _object.reparentTo(self.level.game.levelParentNode)
             _object.setPos(0, 0, 0)
+            #_object.setDepthOffset(1)
 
             self.level.avoidObjects.append(_object.getTag("ground"))
 
@@ -392,7 +394,7 @@ class LevelBuilder():
             color = VBase4(float(colorString[0]), float(colorString[1]), float(colorString[2]), 1)
             plight.setColor(color)
             #plight.setShadowCaster(True, 512, 512)
-            plight.setAttenuation(Point3(0, 0, 0.1))
+            plight.setAttenuation(Point3(0, 0.1, 0.05))
             plnp = render.attachNewNode(plight)
             plnp.setPos(_object.getPos())
             render.setLight(plnp)
@@ -402,9 +404,15 @@ class LevelBuilder():
             colorString = _object.getTag('color').split(',')
             color = VBase4(float(colorString[0]), float(colorString[1]), float(colorString[2]), 1)
             dlight.setColor(color)
+            #dlight.setShadowCaster(True, 512, 512)
+            #dlight.getLens().setFilmSize(1024, 1024)
+            dlight.getLens().setNearFar(40, 400)
             dlnp = render.attachNewNode(dlight)
-            dlnp.setHpr(_object.getHpr(_levelRoot))
+            #dlnp.setHpr(_object.getHpr(_levelRoot))
+            dlnp.setPos(_object.getPos(_levelRoot))
+            dlnp.lookAt(0, 0, 0)
             render.setLight(dlnp)
+            print "DIRECT LIGHT: ", _object.getHpr()
 
     # Something the player can put in his/her bag.
     def buildPickupObject(self, _object, _levelRoot):

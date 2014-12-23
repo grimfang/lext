@@ -17,6 +17,9 @@ class Camera(DirectObject):
         self.setCameraPos()
         self.setCameraHpr()
         self.attachCamOnPlayer()
+
+        #base.camLens.setFilmSize(60.0)
+        base.camLens.setFov(50)
         #taskMgr.add(self.update, "update-cam")
 
 

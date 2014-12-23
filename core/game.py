@@ -34,6 +34,7 @@ class GameCore:
         self.eventMgr = EventMgr(self)
 
     def startGame(self, _playerName="DefaultPlayer"):
+        self.autoShader()
         self.eventMgr.start()
         print "---> Started EventSystem"
         self.loadPhysicsSystem()
@@ -76,5 +77,8 @@ class GameCore:
     def loadCameraSystem(self):
         self.camera = Camera(self)
         self.camera.start()
+
+    def autoShader(self):
+        render.setShaderAuto()
 
 

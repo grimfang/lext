@@ -15,7 +15,7 @@ type     : t-mesh (complexType)
 
 # Walls #
 wall : Name (Used for visuals)
-render : two-face (like for crawl space?)
+two_face : Bool (like for crawl space?)
 col_wall : Name (Used for collisions make them very basic)
 
 # Sun & Basic point lights #

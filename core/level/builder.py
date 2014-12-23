@@ -451,7 +451,7 @@ class LevelBuilder():
         _object.setPos(_object.getPos(_levelRoot))
         _object.setScale(_object.getScale(_levelRoot))
         _object.setHpr(_object.getHpr(_levelRoot))
-        if _object.getTag("render") == "two-face":
+        if _object.getTag("two_face"):
             _object.setTwoSided(True)
 
     def buildColWall(self, _object, _levelRoot):

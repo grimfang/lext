@@ -6,4 +6,4 @@ Check the wiki for more info: [https://github.com/grimfang/lext/wiki](https://gi
 
 ##
 > [Google+](https://plus.google.com/116297701889495747879/) <br />
-> [Grimfang](http://grimfang-studio.org/index.php/)
+> [Grimfang](http://grimfang-studio.org/index.php)

@@ -32,13 +32,12 @@ class Main(ShowBase):
         ShowBase.__init__(self)
         # Set esc for force exit
         self.accept('escape', self.exitApp)
-
         # Load the game
         self.game = GameCore(self)
         self.game.startGame()
 
         print render.ls()
-        #self.game.physicsMgr.setPhysicsDebug(True)
+        self.game.physicsMgr.setPhysicsDebug(True)
 
 
     def exitApp(self):

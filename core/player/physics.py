@@ -22,17 +22,19 @@ class PlayerPhysics():
         self.isFloating = False
 
     def createPlayerBody(self, _name):
-    	radius = 0.43
-        height = 2.0
-        shape = BulletCapsuleShape(radius, height - 2 * radius, ZUp)
+    	radius = 0.4
+        shape = BulletSphereShape(radius)
         
-        node = BulletCharacterControllerNode(shape, 0.4, "physicsBody-"+_name)
+        node = BulletRigidBodyNode("physicsBody-"+_name)
+        node.setMass(1)
+        node.addShape(shape)
         
         body = self.player.game.physicsParentNode.attachNewNode(node)
         body.setPos(self.player.game.level.spawnPoint)
         body.setCollideMask(BitMask32.allOn())
+        body.setCompass()
 
-        self.player.game.physicsMgr.physicsWorld.attachCharacter(node)
+        self.player.game.physicsMgr.physicsWorld.attachRigidBody(node)
 
         return body
 
@@ -48,56 +50,41 @@ class PlayerPhysics():
 
     	return bodyNP
 
-    def doMovement(self):
+    def doMovement(self, _mousePos):
         playerBody = self.player.pPhysicsBody
         speed = Vec3(0, 0, 0)
         jump = Vec3(0, 0, 0)
-        #direction = Vec3(_direction*4)
-        force = 3
-        strafe = 3
+        force = 4.0
         jumpForce = 1.5
-        reqState = "Idle"
-
-        if inputState.isSet('boost'):
-            force = force + 2
         
+        speed = _mousePos
+
         if inputState.isSet('left'):
-            speed.setX(-strafe)
-            #reqState = "LeftWalk"
+            speed.setX(-force)
         
         if inputState.isSet('right'):
-            speed.setX(strafe)
-            #reqState = "RightWalk"
+            speed.setX(force)
         
         if inputState.isSet('up'):
-            speed.setY(force)
-            reqState = "Walk"
+             #setY(force)
+            print speed
             
         if inputState.isSet('down'):
-            speed.setY(-force)
-            reqState = "Walk"
+            speed =- _mousePos #setY(-force)
     
         if inputState.isSet('space'):
-            
-            self.doJump()
-            #self.checkFloorCollide()
-            #if self.isFloating != True:
-            #    jump.setZ(jumpForce)
-            #    self.isFloating = True
-            #elif self.isFloating == True:
-            #    jump.setZ(0.0)
-            #    #self.game.isFloating = False
+        
+            self.checkFloorCollide()
+            if self.isFloating != True:
+                jump.setZ(jumpForce)
+                self.isFloating = True
+            elif self.isFloating == True:
+                jump.setZ(0.0)
+                #self.game.isFloating = False
 
-        #playerBody.node().setActive(True)
-        #playerBody.node().applyCentralForce(speed)
-        #playerBody.node().applyCentralImpulse(jump)
-        playerBody.node().setLinearMovement(speed, True)
-        self.player.requestState(reqState)
-
-    def doJump(self):
-        self.player.pPhysicsBody.node().setMaxJumpHeight(4.0)
-        self.player.pPhysicsBody.node().setJumpSpeed(6.0)
-        self.player.pPhysicsBody.node().doJump()
+        playerBody.node().setActive(True)
+        playerBody.node().applyCentralForce(speed)
+        playerBody.node().applyCentralImpulse(jump)
 
 
     def checkFloorCollide(self):

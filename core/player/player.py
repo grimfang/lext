@@ -33,7 +33,7 @@ class Player():
 
     def start(self):
     	self.buildPlayerPhysicsBody()
-    	self.setPlayerModel("ralph")
+    	self.setPlayerModel("ball")
 
         # Player FSM
         self.playerFSM = PlayerFSM(self, self.playerModel)
@@ -55,13 +55,13 @@ class Player():
             'walk':"assets/models/"+_modelName+"-walk"
             })
 
-        self.playerModel.setScale(.40)
-        self.playerModel.setHpr(180, 0, 0)
+        self.playerModel.setScale(.65)
+        #self.playerModel.setHpr(180, 0, 0)
         #self.playerModel.setPos(0, 0, 0)
 
         if self.pPhysicsBody != None:
             self.playerModel.reparentTo(self.pPhysicsBody)
-            self.playerModel.setPos(0, 0, -1.15)
+            #self.playerModel.setPos(0, 0, -1.15)
         else:
             print "No Player Physics Body found!"
 
@@ -85,13 +85,16 @@ class Player():
         ## Get the direction to the mouse and set it so that it directs the player to it.
         # Make a change depending on gear
         mpos = self.game.input.getMousePointAlways()
+        vector = Vec3(0, 0, 0)
         if mpos != None:
             vector = mpos - self.playerModel.getPos(render)
             #print vector
 
             self.pPhysicsBody.lookAt(mpos)
         #self.physics.telekinesisTask()
-        self.physics.doMovement()
+        if self.game.input.rightMDown:
+            self.physics.doMovement(vector)
+
 
         return task.cont
 

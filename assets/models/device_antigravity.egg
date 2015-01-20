@@ -1,0 +1,261 @@
+<CoordinateSystem> { Z-Up }
+
+<Comment> {
+  "egg-trans -tbnall -o /home/lext/development/Sources/GitProjects/grimfang_projects/rollin/blendFiles/device_antigravity.egg /home/lext/development/Sources/GitProjects/grimfang_projects/rollin/blendFiles/device_antigravity.egg"
+}
+<Texture> deviceNew_edit.png {
+  "tex/deviceNew_edit.png"
+  <Scalar> envtype { modulate }
+}
+<Material> Material {
+  <Scalar> diffr { 0.64 }
+  <Scalar> diffg { 0.64 }
+  <Scalar> diffb { 0.64 }
+  <Scalar> emitr { 0 }
+  <Scalar> emitg { 0 }
+  <Scalar> emitb { 0 }
+  <Scalar> specr { 0.5 }
+  <Scalar> specg { 0.5 }
+  <Scalar> specb { 0.5 }
+  <Scalar> shininess { 12.5 }
+}
+<Group> Cube {
+  <Transform> {
+    <Matrix4> {
+      0.98601 0 0 0
+      0 0.801906 0 0
+      0 0 0.998199 0
+      0 0 0 1
+    }
+  }
+  <VertexPool> Cube {
+    <Vertex> 0 {
+      -2 -2 3.5
+      <UV> {
+        0.355512 0.497656
+        <Tangent> { 0 -0.999993 0.00381888 }
+        <Binormal> { 0 0.00381888 0.999993 }
+      }
+    }
+    <Vertex> 1 {
+      -2 -2 3.5
+      <UV> {
+        0.353985 0.498742
+        <Tangent> { -0.999995 0 -0.00310504 }
+        <Binormal> { 0.00310504 0 -0.999995 }
+      }
+    }
+    <Vertex> 2 {
+      -2 -2 3.5
+      <UV> {
+        0.998914 0.498742
+        <Tangent> { -0.999997 0.00249463 0 }
+        <Binormal> { -0.00249463 -0.999997 0 }
+      }
+    }
+    <Vertex> 3 {
+      -2 -2 -3.5
+      <UV> {
+        0.353985 0
+        <Tangent> { 0 -0.999993 0.00381888 }
+        <Binormal> { 0 0.00381888 0.999993 }
+      }
+    }
+    <Vertex> 4 {
+      -2 -2 -3.5
+      <UV> {
+        0.355512 0.996398
+        <Tangent> { -0.999995 0 -0.00310856 }
+        <Binormal> { 0.00310856 0 -0.999995 }
+      }
+    }
+    <Vertex> 5 {
+      -2 -2 -3.5
+      <UV> {
+        0.646015 0.853611
+        <Tangent> { 0.999997 -0.0024973 0 }
+        <Binormal> { -0.0024973 -0.999997 0 }
+      }
+    }
+    <Vertex> 6 {
+      -2 2 3.5
+      <UV> {
+        0.001527 0.498742
+        <Tangent> { 0 -0.999993 0.00381888 }
+        <Binormal> { 0 0.00381888 0.999993 }
+      }
+    }
+    <Vertex> 7 {
+      -2 2 3.5
+      <UV> {
+        1 0.144757
+        <Tangent> { -0.999997 0.00249454 0 }
+        <Binormal> { -0.00249454 -0.999997 0 }
+      }
+    }
+    <Vertex> 8 {
+      -2 2 3.5
+      <UV> {
+        0.355512 0.499625
+        <Tangent> { 0.999995 0 -0.00310504 }
+        <Binormal> { -0.00310504 0 -0.999995 }
+      }
+    }
+    <Vertex> 9 {
+      -2 2 -3.5
+      <UV> {
+        0 0.001086
+        <Tangent> { 0 -0.999993 0.00381888 }
+        <Binormal> { 0 0.00381888 0.999993 }
+      }
+    }
+    <Vertex> 10 {
+      -2 2 -3.5
+      <UV> {
+        0.644929 0.499625
+        <Tangent> { 0.999997 -0.00249447 0 }
+        <Binormal> { -0.00249447 -0.999997 0 }
+      }
+    }
+    <Vertex> 11 {
+      -2 2 -3.5
+      <UV> {
+        0.357039 0.997282
+        <Tangent> { 0.999995 0 -0.00310855 }
+        <Binormal> { -0.00310855 0 -0.999995 }
+      }
+    }
+    <Vertex> 12 {
+      2 -2 3.5
+      <UV> {
+        0.066095 0.499625
+        <Tangent> { -0.999995 0 -0.00310504 }
+        <Binormal> { 0.00310504 0 -0.999995 }
+      }
+    }
+    <Vertex> 13 {
+      2 -2 3.5
+      <UV> {
+        0.711024 0.497859
+        <Tangent> { -0.999997 0.00249463 0 }
+        <Binormal> { -0.00249463 -0.999997 0 }
+      }
+    }
+    <Vertex> 14 {
+      2 -2 3.5
+      <UV> {
+        0.357038 0.498742
+        <Tangent> { 0 0.999993 0.00381888 }
+        <Binormal> { 0 -0.00381888 0.999993 }
+      }
+    }
+    <Vertex> 15 {
+      2 -2 -3.5
+      <UV> {
+        0.067621 0.997282
+        <Tangent> { -0.999995 0 -0.00310855 }
+        <Binormal> { 0.00310855 0 -0.999995 }
+      }
+    }
+    <Vertex> 16 {
+      2 -2 -3.5
+      <UV> {
+        0.933905 0.852727
+        <Tangent> { 0.999997 -0.0024973 0 }
+        <Binormal> { -0.0024973 -0.999997 0 }
+      }
+    }
+    <Vertex> 17 {
+      2 -2 -3.5
+      <UV> {
+        0.355512 0.001086
+        <Tangent> { 0 0.999993 0.00381888 }
+        <Binormal> { 0 -0.00381888 0.999993 }
+      }
+    }
+    <Vertex> 18 {
+      2 2 -3.5
+      <UV> {
+        0.932819 0.498742
+        <Tangent> { 0.999997 -0.00249448 0 }
+        <Binormal> { -0.00249448 -0.999997 0 }
+      }
+    }
+    <Vertex> 19 {
+      2 2 -3.5
+      <UV> {
+        0.644929 0.996398
+        <Tangent> { 0.999995 0 -0.00310856 }
+        <Binormal> { -0.00310856 0 -0.999995 }
+      }
+    }
+    <Vertex> 20 {
+      2 2 -3.5
+      <UV> {
+        0.709497 0
+        <Tangent> { 0 0.999993 0.00381888 }
+        <Binormal> { 0 -0.00381888 0.999993 }
+      }
+    }
+    <Vertex> 21 {
+      2 2 3.5
+      <UV> {
+        0.71211 0.143874
+        <Tangent> { -0.999997 0.00249454 0 }
+        <Binormal> { -0.00249454 -0.999997 0 }
+      }
+    }
+    <Vertex> 22 {
+      2 2 3.5
+      <UV> {
+        0.643402 0.498742
+        <Tangent> { 0.999995 0 -0.00310504 }
+        <Binormal> { -0.00310504 0 -0.999995 }
+      }
+    }
+    <Vertex> 23 {
+      2 2 3.5
+      <UV> {
+        0.711024 0.497656
+        <Tangent> { 0 0.999993 0.00381888 }
+        <Binormal> { 0 -0.00381888 0.999993 }
+      }
+    }
+  }
+  <Polygon> {
+    <Normal> { 0 0 -1 }
+    <TRef> { deviceNew_edit.png }
+    <MRef> { Material }
+    <VertexRef> { 18 16 5 10 <Ref> { Cube } }
+  }
+  <Polygon> {
+    <Normal> { 0 0 1 }
+    <TRef> { deviceNew_edit.png }
+    <MRef> { Material }
+    <VertexRef> { 21 7 2 13 <Ref> { Cube } }
+  }
+  <Polygon> {
+    <Normal> { 1 0 0 }
+    <TRef> { deviceNew_edit.png }
+    <MRef> { Material }
+    <VertexRef> { 20 23 14 17 <Ref> { Cube } }
+  }
+  <Polygon> {
+    <Normal> { 0 -1 0 }
+    <TRef> { deviceNew_edit.png }
+    <MRef> { Material }
+    <VertexRef> { 15 12 1 4 <Ref> { Cube } }
+  }
+  <Polygon> {
+    <Normal> { -1 0 0 }
+    <TRef> { deviceNew_edit.png }
+    <MRef> { Material }
+    <VertexRef> { 3 0 6 9 <Ref> { Cube } }
+  }
+  <Polygon> {
+    <Normal> { 0 1 0 }
+    <TRef> { deviceNew_edit.png }
+    <MRef> { Material }
+    <VertexRef> { 22 19 11 8 <Ref> { Cube } }
+  }
+}

@@ -34,6 +34,8 @@ class Input(DirectObject):
         # Mouse
         #self.accept("mouse1-up", self.setMouseHold, [False])
         self.accept("mouse1", self.evtLeftClick)
+        self.accept("mouse3", self.evtRightClick, [True])
+        self.accept("mouse3-up", self.evtRightClick, [False])
         #self.accept("mouse1", self.setMouseHold, [True])
         self.mouseBtnUp = False
         # Wheel
@@ -47,6 +49,9 @@ class Input(DirectObject):
 
         # should populate this automatically
         self.avoidObjects = []
+
+        # Move Check
+        self.rightMDown = False
 
     def start(self):
         taskMgr.add(self.update, "input-update")
@@ -133,8 +138,9 @@ class Input(DirectObject):
         #base.messenger.send("activate-gun", [True])
         self.getMousePoint()
 
-    def evtRightClick(self):
-        base.messenger.send("remove-antigravity-device")
+    def evtRightClick(self, _bool):
+        base.messenger.send("player-move")
+        self.rightMDown = _bool
 
     def evtGetCameraPos(self):
         self.game.camera.getCameraPos()

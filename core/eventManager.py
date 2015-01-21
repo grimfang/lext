@@ -20,6 +20,7 @@ class EventMgr(DirectObject):
     def start(self):
         self.accept("check-mouse-lclick", self.handleMouseLeft)
         self.accept("handle-lock", self.handleButtonLock)
+        self.accept("place-device", self.handleDevicePlacement)
 
     def stop(self):
         self.ignore("check-mouse-lclick")
@@ -74,6 +75,10 @@ class EventMgr(DirectObject):
         else:
             self.game.level.physicSensors[_setUnlock].state = True
             #print tmp
+
+    def handleDevicePlacement(self, _pos):
+
+        self.game.player.device.evtCreateAntiGravityDev(_pos)
 
 
 

@@ -41,6 +41,7 @@ class Input(DirectObject):
         # Wheel
         self.accept("wheel_up", self.evtMouseWheel, [True])
         self.accept("wheel_down", self.evtMouseWheel, [False])
+        self.accept("1", self.evtPlaceDevice)
         
 
         ## Physic Objects list
@@ -97,6 +98,23 @@ class Input(DirectObject):
         else:
             return [False, Point3(0, 0, 0)]
 
+    def getDevicePlacementPoint(self): 
+        if base.mouseWatcherNode.hasMouse():
+            pMouse = base.mouseWatcherNode.getMouse()
+            pFrom = Point3()
+            pTo = Point3()
+            base.camLens.extrude(pMouse, pFrom, pTo)
+
+            pFrom = render.getRelativePoint(base.cam, pFrom)
+            pTo = render.getRelativePoint(base.cam, pTo)
+
+            ## For the guns, maybe have it closest
+            result = self.game.physicsMgr.physicsWorld.rayTestAll(pFrom, pTo)
+            
+            for hit in result.getHits():
+                if hit.getNode().getName() == "Ground":
+                    return hit.getHitPos()
+
 
     def getMousePointAlways(self):
         # This is used for the heading of the player. - omega
@@ -151,3 +169,7 @@ class Input(DirectObject):
 
     def evtButtonPressed(self, _btnName):
         base.messenger.send("switch-sensor", [_btnName])
+
+    def evtPlaceDevice(self):
+        pos = self.getDevicePlacementPoint()
+        base.messenger.send("place-device", [pos])

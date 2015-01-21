@@ -16,7 +16,7 @@ class DevicePhysics():
     def __init__(self, _device):
         
         self.device = _device
-        self.physicObjects = self.device.game.levelBuilder.physicObjects
+        self.physicObjects = self.device.player.game.level.physicObjects
 
     def createDeviceBody(self, _name, _placePos):
 
@@ -25,25 +25,25 @@ class DevicePhysics():
 
     	ghost = BulletGhostNode('Ghost-'+_name)
     	ghost.addShape(shape)
-    	ghostNP = self.device.game.physicsParentNode.attachNewNode(ghost)
+    	ghostNP = self.device.player.game.physicsParentNode.attachNewNode(ghost)
     	# Make hack for adjusting the z axis...
     	fixedZ = _placePos[2] + 3.3
     	ghostNP.setPos(_placePos[0], _placePos[1], fixedZ)
     	ghostNP.setCollideMask(BitMask32(0x0f))
 
-    	self.device.game.physicsMgr.physicsWorld.attachGhost(ghost)
+    	self.device.player.game.physicsMgr.physicsWorld.attachGhost(ghost)
 
     	return ghostNP
 
     ## Task method
     def deviceTask(self):
         device = self.device.dPhysicBody
-        physicObjects = self.device.game.levelBuilder.physicObjects
+        physicObjects = self.device.player.game.level.physicObjects
 
         for obj in physicObjects:
             box = physicObjects[obj]
 
-            result = self.device.game.physicsMgr.physicsWorld.contactTestPair(box.node(), device.node())
+            result = self.device.player.game.physicsMgr.physicsWorld.contactTestPair(box.node(), device.node())
 
 
             if result.getContacts() == []:

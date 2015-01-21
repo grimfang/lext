@@ -16,9 +16,9 @@ from physics import DevicePhysics
 
 class Device():
     
-    def __init__(self, _game):
+    def __init__(self, _player):
         
-        self.game = _game
+        self.player = _player
 
         self.physics = DevicePhysics(self)
 

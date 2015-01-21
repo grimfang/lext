@@ -58,7 +58,7 @@ class PlayerPhysics():
         jumpForce = 1.5
         
         speed = _mousePos
-
+        '''
         if inputState.isSet('left'):
             speed.setX(-force)
         
@@ -71,7 +71,7 @@ class PlayerPhysics():
             
         if inputState.isSet('down'):
             speed =- _mousePos #setY(-force)
-    
+        '''
         if inputState.isSet('space'):
         
             self.checkFloorCollide()

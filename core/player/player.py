@@ -10,6 +10,7 @@ from direct.actor.Actor import Actor
 
 # Game imports
 from physics import PlayerPhysics
+from device.device import Device
 
 #----------------------------------------------------------------------#
 
@@ -30,6 +31,9 @@ class Player():
 
         ## Physics
         self.physics = PlayerPhysics(self)
+
+        # Player Device
+        self.device = Device(self)
 
     def start(self):
     	self.buildPlayerPhysicsBody()
